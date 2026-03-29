@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEVEN | One of Seven</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@900&family=Syncopate:wght@700&display=swap');
+
+        :root {
+            --main-color: #ff0055; 
+            --neon-green: #00ff88;
+            --bg-dark: #050505; 
+            --card-bg: #111;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-dark); color: white; overflow-x: hidden; }
+
+        /* Navigation */
+        header {
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
+            position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid #1a1a1a;
+        }
+        .logo { font-family: 'Orbitron'; font-size: 1.8rem; color: #fff; text-decoration: none; cursor: pointer; text-shadow: 0 0 10px var(--main-color); }
+        .logo span { color: var(--main-color); }
+
+        .header-tools { display: flex; align-items: center; gap: 20px; }
+        .points-badge { background: #1a1a1a; padding: 5px 15px; border-radius: 20px; border: 1px solid var(--neon-green); color: var(--neon-green); font-family: 'Orbitron'; font-size: 0.8rem; }
+        .cart-icon { position: relative; cursor: pointer; font-size: 1.4rem; }
+        #cart-count { position: absolute; top: -8px; right: -10px; background: var(--main-color); padding: 2px 6px; border-radius: 50%; font-size: 0.7rem; font-family: 'Orbitron'; }
+
+        /* Hero */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; }
+        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .hero-content { z-index: 1; text-align: center; }
+        .hero h1 { font-family: 'Syncopate'; font-size: clamp(3rem, 10vw, 6rem); letter-spacing: 15px; background: linear-gradient(#fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .slogan { font-family: 'Orbitron'; color: var(--main-color); letter-spacing: 5px; margin-top: 10px; font-size: 1.1rem; }
+
+        /* Cart Sidebar */
+        #cart-sidebar {
+            position: fixed; right: -400px; top: 0; width: 350px; height: 100%;
+            background: #0a0a0a; z-index: 2000; transition: 0.4s; padding: 30px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8); border-left: 1px solid #1a1a1a;
+        }
+        #cart-sidebar.open { right: 0; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: #111; padding: 10px; margin-bottom: 10px; border-radius: 8px; font-size: 0.8rem; }
+        .remove-btn { color: #ff4444; cursor: pointer; margin-right: 10px; }
+
+        /* Coupon Input in Cart */
+        .coupon-section { margin-top: 25px; border-top: 1px solid #222; padding-top: 15px; }
+        .coupon-input { background: #1a1a1a; color: white; border: 1px solid #333; padding: 10px; border-radius: 5px; width: 100%; outline: none; font-size: 0.8rem; font-family: 'Orbitron'; margin-bottom: 10px; }
+        .coupon-input::placeholder { color: #555; }
+
+        /* Grid */
+        .products { padding: 100px 5%; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .product-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; border: 1px solid #1a1a1a; position: relative; transition: 0.4s; }
+        .product-card:hover { border-color: var(--main-color); transform: translateY(-5px); }
+        
+        .product-image { width: 100%; height: 350px; object-fit: cover; }
+        .product-info { padding: 20px; text-align: center; }
+        
+        /* Size Selector */
+        .size-selector { margin-bottom: 15px; background: #1a1a1a; color: white; border: 1px solid #333; padding: 5px; border-radius: 5px; outline: none; width: 100%; cursor: pointer; }
+
+        .price { color: var(--neon-green); font-family: 'Orbitron'; font-weight: bold; margin-bottom: 15px; display: block; font-size: 1.2rem; }
+        .add-btn { width: 100%; padding: 12px; border: 1px solid white; background: transparent; color: white; cursor: pointer; transition: 0.3s; font-weight: bold; letter-spacing: 1px; }
+        .add-btn:hover { background: white; color: black; }
+
+        /* The Lab */
+        .lab { padding: 80px 5%; background: #080808; text-align: center; border-top: 1px solid #111; }
+        .section-title { font-family: 'Orbitron'; font-size: 2.2rem; margin-bottom: 60px; text-transform: uppercase; letter-spacing: 4px; }
+        .lab-content { display: flex; justify-content: center; gap: 30px; }
+        .lab-box { background: #111; padding: 30px; border-radius: 10px; border: 1px solid #222; width: 100%; max-width: 400px; transition: 0.3s; }
+        .lab-box:hover { border-color: var(--neon-green); transform: scale(1.05); }
+        .lab-box i { color: var(--main-color); font-size: 2.5rem; margin-bottom: 20px; }
+        .lab-box p { color: #888; line-height: 1.6; }
+
+        #reward-msg { color: var(--neon-green); font-family: 'Orbitron'; text-align: center; display: none; margin-top: 20px; font-size: 0.8rem; animation: pulse 1s infinite; text-shadow: 0 0 10px var(--neon-green); }
+        @keyframes pulse { 0% {opacity: 0.5;} 50% {opacity: 1;} 100% {opacity: 0.5;} }
+        
+        footer { padding: 50px; text-align: center; color: #444; font-family: 'Orbitron'; font-size: 0.7rem; border-top: 1px solid #111; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a class="logo" onclick="eggClick()">ELE<span>VEN</span></a>
+        <div class="header-tools">
+            <div class="points-badge"><i class="fas fa-star"></i> <span id="user-points">0</span> PTS</div>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <div id="cart-sidebar">
+        <div style="display:flex; justify-content:space-between; margin-bottom:30px; font-family: 'Orbitron'; font-size: 1.1rem;">
+            <h3>MY BAG</h3>
+            <i class="fas fa-times" onclick="toggleCart()" style="cursor:pointer; color:#555"></i>
+        </div>
+        <div id="cart-items-list">Your bag is empty.</div>
+        
+        <div id="reward-msg">🎉 1000 PTS: FREE TEE READY!</div>
+
+        <div class="coupon-section">
+            <input type="text" id="coupon-code" class="coupon-input" placeholder="ادخل كود الخصم (اختياري)">
+        </div>
+
+        <button class="add-btn" style="background:var(--main-color); border:none; margin-top:10px; color:white;" onclick="checkoutWhatsApp()">CHECKOUT</button>
+    </div>
+
+    <section class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content">
+            <h1 data-aos="zoom-in">ELEVEN</h1>
+            <p class="slogan" data-aos="fade-up" data-aos-delay="300">ONE OF SEVEN</p>
+        </div>
+    </section>
+
+    <section class="lab">
+        <h2 class="section-title" data-aos="fade-right">THE LAB</h2>
+        <div class="lab-content">
+            <div class="lab-box" data-aos="fade-up">
+                <i class="fas fa-pencil-ruler"></i>
+                <h4 style="color:white; margin-bottom:10px;">DESIGNING</h4>
+                <p>كل قطعة بتبدأ برسم يدوي في استوديو ELEVEN، بنهتم بالخطوط الجريئة والخيال الجامح.</p>
+            </div>
+            <div class="lab-box" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-print"></i>
+                <h4 style="color:white; margin-bottom:10px;">PRINTING</h4>
+                <p>في دمياط، بنستخدم أنظف طرق الطباعة الـ DTG عشان الـ Graphic يطلع حقيقي وملمسه ناعم.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="products">
+        <div class="products-grid">
+            <div class="product-card" data-aos="fade-up">
+                <img src="Screenshot-2026-03-27-184252.jif" class="product-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/111/fff?text=CYBER+TEE'">
+                <div class="product-info">
+                    <h3>CYBER ELEVEN</h3>
+                    <select class="size-selector" id="size-1">
+                        <option value="M">Size: M</option>
+                        <option value="L">Size: L</option>
+                        <option value="XL">Size: XL</option>
+                        <option value="XXL">Size: XXL</option>
+                    </select>
+                    <span class="price">480 EGP</span>
+                    <button class="add-btn" onclick="addToBag('CYBER ELEVEN', 480, 'size-1')">ADD TO BAG</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                <img src="Gemini_Generated_Image_go2a7hgo2a7hgo2a.jif" class="product-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/111/fff?text=NIGHTMARE'">
+                <div class="product-info">
+                    <h3>NIGHTMARE</h3>
+                    <select class="size-selector" id="size-2">
+                        <option value="M">Size: M</option>
+                        <option value="L">Size: L</option>
+                        <option value="XL">Size: XL</option>
+                        <option value="XXL">Size: XXL</option>
+                    </select>
+                    <span class="price">460 EGP</span>
+                    <button class="add-btn" onclick="addToBag('NIGHTMARE', 460, 'size-2')">ADD TO BAG</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="download (17).jfif" class="product-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/111/fff?text=URBAN'">
+                <div class="product-info">
+                    <h3>URBAN MADNESS</h3>
+                    <select class="size-selector" id="size-3">
+                        <option value="M">Size: M</option>
+                        <option value="L">Size: L</option>
+                        <option value="XL">Size: XL</option>
+                        <option value="XXL">Size: XXL</option>
+                    </select>
+                    <span class="price">420 EGP</span>
+                    <button class="add-btn" onclick="addToBag('URBAN MADNESS', 420, 'size-3')">ADD TO BAG</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-aos="fade-up">
+                <img src="Men Fashion Summer Printed Short Sleeve T-Shirt.jfif" class="product-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/111/fff?text=SAVAGE'">
+                <div class="product-info">
+                    <h3>SUMMER SAVAGE</h3>
+                    <select class="size-selector" id="size-4">
+                        <option value="M">Size: M</option>
+                        <option value="L">Size: L</option>
+                        <option value="XL">Size: XL</option>
+                        <option value="XXL">Size: XXL</option>
+                    </select>
+                    <span class="price">450 EGP</span>
+                    <button class="add-btn" onclick="addToBag('SUMMER SAVAGE', 450, 'size-4')">ADD TO BAG</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>ELEVEN &copy; 2026 | ONE OF SEVEN | DAMIETTA</footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        let points = localStorage.getItem('eleven_points') ? parseInt(localStorage.getItem('eleven_points')) : 0;
+        let bagItems = [];
+        let egg = 0;
+
+        document.getElementById('user-points').innerText = points;
+
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
+
+        function addToBag(name, price, sizeId) {
+            const size = document.getElementById(sizeId).value;
+            const item = { id: Date.now(), name: name, price: price, size: size };
+            bagItems.push(item);
+            
+            points += 100;
+            localStorage.setItem('eleven_points', points);
+            document.getElementById('user-points').innerText = points;
+
+            updateUI();
+            if(points >= 1000) document.getElementById('reward-msg').style.display = 'block';
+            
+            const btn = event.target;
+            btn.innerText = "ADDED ✓";
+            btn.style.borderColor = "var(--neon-green)";
+            btn.style.color = "var(--neon-green)";
+            setTimeout(() => { btn.innerText = "ADD TO BAG"; btn.style.borderColor = "white"; btn.style.color="white"}, 1500);
+        }
+
+        function removeFromBag(id) {
+            bagItems = bagItems.filter(item => item.id !== id);
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('cart-count').innerText = bagItems.length;
+            const list = document.getElementById('cart-items-list');
+            if(bagItems.length === 0) {
+                list.innerHTML = '<p style="color:#555">Your bag is empty. (ادخل كود الخصم في الأسفل)</p>';
+            } else {
+                list.innerHTML = bagItems.map(item => `
+                    <div class="cart-item">
+                        <span>${item.name} (${item.size})</span>
+                        <div style="display:flex; align-items:center;">
+                            <span style="color:var(--neon-green)">${item.price} EGP</span>
+                            <i class="fas fa-trash remove-btn" onclick="removeFromBag(${item.id})"></i>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function eggClick() {
+            egg++;
+            if(egg === 11) alert("SECRET UNLOCKED: Use Code 'ELEVEN11' for 11% OFF!");
+        }
+
+        // Checkout WhatsApp (Linked to your number)
+        function checkoutWhatsApp() {
+            if(bagItems.length === 0) {
+                alert("السلة فاضية يا بطل!");
+                return;
+            }
+            const phone = "201062910161"; // Your WhatsApp number
+            const coupon = document.getElementById('coupon-code').value; // Get the coupon code
+            
+            let message = "يا مدير، عايز أطلب من ELEVEN:\n\n";
+            let total = 0;
+            bagItems.forEach(item => {
+                message += `• ${item.name} (${item.size}) - ${item.price} EGP\n`;
+                total += item.price;
+            });
+            message += `\nالإجمالي: ${total} EGP\n`;
+            message += `نقاطي: ${points} PTS`;
+            if(points >= 1000) message += "\n(مستحق لتيشرت مجاني 🔥)";
+            if(coupon) message += `\nكود الخصم: ${coupon}`; // Add coupon to message
+
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`);
+        }
+
+        // Moving Background
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let pArray = [];
+        for(let i=0; i<60; i++) pArray.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2, vx:Math.random()-0.5, vy:Math.random()-0.5});
+        function animate() {
+            ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = 'rgba(255, 0, 85, 0.3)';
+            pArray.forEach(p => {
+                p.x+=p.vx; p.y+=p.vy;
+                if(p.x<0 || p.x>canvas.width) p.vx*=-1;
+                if(p.y<0 || p.y>canvas.height) p.vy*=-1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
