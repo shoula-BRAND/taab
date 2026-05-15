@@ -171,7 +171,7 @@
 
         // 2. Sales Notifications Logic
         const names = ["محمد من دمياط", "سارة من المنصورة", "أحمد من القاهرة", "ياسين من الإسكندرية", "عمر من بورسعيد"];
-        const prods = ["تيشيرت Eleven Graphic", "هودي الـ Oversized", "القطعة رقم #3", "التيشيرت الأبيض الجديد"];
+        const prods = ["تيشيرت Eleven Graphic", "هودي الـ Oversized", "القطعة رقم #15", "التيشيرت الأسود الجديد"];
         
         function showPop() {
             const pop = document.getElementById('sales-pop');
@@ -182,37 +182,33 @@
         }
         setInterval(showPop, 25000);
 
-        // 3. Products Database (مربوط بروابط الـ Gallery بتاعتك مباشرة)
-        const productsData = [
-            { id: 1, name: "ELEVEN BLACK GRAPHIC T-SHIRT", price: 550, img: "https://i.postimg.cc/9F4P2vW3/1.png" },
-            { id: 2, name: "ELEVEN WHITE OVERSIZED T-SHIRT", price: 550, img: "https://i.postimg.cc/85zstT46/2.png" },
-            { id: 3, name: "ELEVEN ACID WASH T-SHIRT", price: 550, img: "https://i.postimg.cc/KjCHzVbS/3.png" },
-            { id: 4, name: "ELEVEN URBAN LOGO T-SHIRT", price: 550, img: "https://i.postimg.cc/N0m2Z8x9/4.png" }
-        ];
-
+        // 3. Products Loop (من 9 لـ 49)
         const grid = document.getElementById('product-grid');
         let cart = [];
         let selections = {};
 
-        // عرض المنتجات بناءً على الروابط الجديدة
-        productsData.forEach(product => {
+        // العداد هيبدأ من القطعة 9 لحد القطعة 49
+        for (let i = 9; i <= 49; i++) {
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
-                <div class="product-img"><img src="${product.img}" alt="${product.name}"></div>
+                <div class="product-img">
+                    <!-- الكود بيقرأ الصورة مباشرة باسم رقمها المحطوط جنب ملف الـ html -->
+                    <img src="${i}.png" alt="Eleven Piece #${i}" onerror="this.src='https://placehold.co/500x700?text=ELEVEN+PIECE+${i}'">
+                </div>
                 <div style="display:flex; justify-content:space-between; font-weight:900; margin-bottom:10px;">
-                    <span>${product.name}</span>
-                    <span>${product.price} EGP</span>
+                    <span>ELEVEN PIECE #${i}</span>
+                    <span>550 EGP</span>
                 </div>
-                <div class="size-selector" id="size-group-${product.id}">
-                    <button class="size-btn" onclick="selectSize(this, 'M', ${product.id})">M</button>
-                    <button class="size-btn" onclick="selectSize(this, 'L', ${product.id})">L</button>
-                    <button class="size-btn" onclick="selectSize(this, 'XL', ${product.id})">XL</button>
+                <div class="size-selector" id="size-group-${i}">
+                    <button class="size-btn" onclick="selectSize(this, 'M', ${i})">M</button>
+                    <button class="size-btn" onclick="selectSize(this, 'L', ${i})">L</button>
+                    <button class="size-btn" onclick="selectSize(this, 'XL', ${i})">XL</button>
                 </div>
-                <button class="add-btn" onclick="addToBag(${product.id}, '${product.name}', ${product.price})">Add To Bag</button>
+                <button class="add-btn" onclick="addToBag(${i}, 'Piece #${i}', 550)">Add To Bag</button>
             `;
             grid.appendChild(card);
-        });
+        }
 
         // أنميشن السكرول
         const observer = new IntersectionObserver((entries) => {
