@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eleven Pop | Global Streetwear Brand</title>
+    <title>Eleven® |  local Brand</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&family=Cairo:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap');
 
         :root {
             --black: #000000;
@@ -17,7 +17,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
 
         body {
-            font-family: 'Inter', 'Cairo', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--white);
             color: var(--black);
             overflow-x: hidden;
@@ -25,70 +25,135 @@
 
         /* 1. Custom Cursor */
         #cursor {
-            width: 15px; height: 15px; background: var(--white);
-            border-radius: 50%; position: fixed; pointer-events: none;
-            z-index: 9999; mix-blend-mode: difference; transition: transform 0.1s ease;
+            width: 15px;
+            height: 15px;
+            background: var(--white);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
         }
 
         /* 2. Loader */
         #loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--black); display: flex; justify-content: center;
-            align-items: center; z-index: 10000; transition: opacity 1s ease, visibility 1s;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 1s ease, visibility 1s;
         }
         #loader h1 { color: white; font-size: 3rem; letter-spacing: 15px; animation: pulse 1.5s infinite; }
 
-        /* 3. Hero Section (YouTube) */
+        /* 3. Hero Section with Video Background */
         .hero-bar {
-            width: 100%; height: 100vh; position: relative;
-            background: var(--black); display: flex; justify-content: center;
-            align-items: center; overflow: hidden;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: var(--black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
-        .video-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1;
-        }
-        .video-container iframe {
-            width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            filter: brightness(0.4) grayscale(0.2);
-        }
-        .hero-content { position: relative; z-index: 2; text-align: center; color: var(--white); }
-        .hero-title { font-size: clamp(3rem, 15vw, 10rem); font-weight: 900; letter-spacing: 20px; text-transform: uppercase; }
 
-        /* 4. Sales Notification */
-        .sales-notification {
-            position: fixed; bottom: 20px; left: -400px; background: white;
-            color: black; padding: 15px 25px; border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 9999;
-            display: flex; align-items: center; gap: 15px;
-            transition: 0.8s cubic-bezier(0.7, 0, 0.3, 1); border-left: 5px solid #000;
-            direction: rtl;
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            filter: brightness(0.4);
+            z-index: 1;
         }
-        .sales-notification.active { left: 20px; }
-        .sales-info b { display: block; font-size: 0.9rem; }
-        .sales-info p { font-size: 0.8rem; margin: 0; opacity: 0.7; }
 
-        /* 5. Nav & Grid */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 15vw, 10rem);
+            font-weight: 900;
+            letter-spacing: 20px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            animation: heroFade 2s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* 4. Navigation */
         nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 5%; position: sticky; top: 0; z-index: 100;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #eee;
         }
+
+        .nav-logo { font-weight: 900; letter-spacing: 4px; font-size: 1.2rem; }
+        .cart-btn { font-weight: 900; border-bottom: 2px solid black; padding-bottom: 2px; }
+
+        /* 5. Brand Story Section */
+        .brand-story {
+            padding: 120px 10%;
+            text-align: center;
+            background: var(--white);
+        }
+        .brand-story h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 25px; text-transform: uppercase; }
+        .brand-story p { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: #444; }
+
+        /* 6. Product Grid */
         .container { max-width: 1400px; margin: 80px auto; padding: 0 5%; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 50px; }
-        .product-card { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-        .product-card.visible { opacity: 1; transform: translateY(0); }
-        .product-img { width: 100%; height: 450px; overflow: hidden; background: var(--grey); margin-bottom: 20px; }
-        .product-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
-        .product-card:hover .product-img img { transform: scale(1.05); }
-
-        /* Buttons & Cart */
-        .size-selector { display: flex; gap: 10px; margin-bottom: 15px; }
-        .size-btn { flex: 1; padding: 10px; border: 1px solid #ddd; background: none; font-weight: bold; }
-        .size-btn.selected { background: black; color: white; border-color: black; }
-        .add-btn { width: 100%; padding: 18px; background: var(--black); color: var(--white); border: none; font-weight: 900; text-transform: uppercase; }
         
+        .product-card { 
+            opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; 
+            margin-bottom: 30px;
+        }
+        .product-card.visible { opacity: 1; transform: translateY(0); }
+
+        .product-img {
+            width: 100%; height: 450px; overflow: hidden; background: var(--grey);
+            position: relative; margin-bottom: 20px;
+        }
+        .product-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .product-card:hover .product-img img { transform: scale(1.08); }
+
+        /* Size Buttons */
+        .size-selector { display: flex; gap: 10px; margin-bottom: 15px; }
+        .size-btn {
+            flex: 1; padding: 10px; border: 1px solid #ddd; background: none;
+            font-size: 0.8rem; font-weight: bold; transition: 0.3s;
+        }
+        .size-btn.selected { background: black; color: white; border-color: black; }
+
+        .add-btn {
+            width: 100%; padding: 18px; background: var(--black); color: var(--white);
+            border: none; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+        }
+
+        /* 7. Cart Sidebar */
         .cart-overlay {
             position: fixed; top: 0; right: -100%; width: 100%; max-width: 450px; height: 100%;
             background: var(--white); z-index: 2000; padding: 60px 40px;
@@ -96,107 +161,131 @@
             display: flex; flex-direction: column;
         }
         .cart-overlay.active { right: 0; }
+        #cart-items { flex-grow: 1; overflow-y: auto; margin-top: 30px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .remove-btn { color: #ff4444; font-weight: bold; margin-left: 15px; }
 
+        /* 8. Footer & Social Media */
+        footer {
+            background: var(--black); color: var(--white);
+            padding: 100px 5% 50px; text-align: center;
+        }
+        .footer-logo { font-size: 3rem; font-weight: 900; letter-spacing: 10px; margin-bottom: 30px; }
+        .social-links { display: flex; justify-content: center; gap: 40px; margin-bottom: 50px; }
+        .social-links a { color: white; text-decoration: none; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.6; transition: 0.3s; }
+        .social-links a:hover { opacity: 1; }
+
+        /* Animations */
         @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        @keyframes heroFade {
+            0% { opacity: 0; letter-spacing: 40px; transform: scale(1.1); }
+            100% { opacity: 1; letter-spacing: 20px; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Custom Cursor -->
     <div id="cursor"></div>
-    <div id="loader"><h1>ELEVEN</h1></div>
 
-    <!-- Sales Pop-up -->
-    <div id="sales-pop" class="sales-notification">
-        <div class="sales-info">
-            <b id="buyer-name">أحمد من القاهرة</b>
-            <p id="buyer-action">اشترى تيشيرت Eleven Piece #5</p>
-            <p style="font-size: 0.6rem; opacity: 0.5;" id="buyer-time">منذ 2 دقيقة</p>
-        </div>
+    <!-- Loader -->
+    <div id="loader">
+        <h1>ELEVEN</h1>
     </div>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <header class="hero-bar">
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/5i0vYvWcaGo?autoplay=1&mute=1&controls=0&loop=1&playlist=5i0vYvWcaGo&showinfo=0&rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
-        </div>
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://youtu.be/5i0vYvWcaGo?si=238Vbrtsa99B_Qve" type="video/mp4">
+        </video>
         <div class="hero-content">
             <h1 class="hero-title">ELEVEN</h1>
-            <p style="letter-spacing:10px;">GLOBAL STREETWEAR</p>
+            <p class="hero-subtitle">eleven local brand</p>
         </div>
     </header>
 
+    <!-- Brand Story -->
+    <section class="brand-story">
+        <h2>Designed in Egypt. Made for the World.</h2>
+        <p>At Eleven, we redefine streetwear through oversized silhouettes and premium heavy cotton. Each piece is a statement of quality and urban culture.</p>
+    </section>
+
+    <!-- Sticky Nav -->
     <nav>
-        <div style="font-weight:900; letter-spacing:4px;">ELEVEN POP</div>
-        <div style="font-weight:900;" onclick="toggleCart()">BAG (<span id="cart-count">0</span>)</div>
+        <div class="nav-logo">ELEVEN </div>
+        <div class="cart-btn" onclick="toggleCart()">BAG (<span id="cart-count">0</span>)</div>
     </nav>
 
+    <!-- Product Section -->
     <section class="container">
         <div class="product-grid" id="product-grid"></div>
     </section>
 
-    <footer style="background:#000; color:#fff; padding:100px 5%; text-align:center;">
-        <h2 style="font-size:3rem; letter-spacing:10px; margin-bottom:30px;">ELEVEN</h2>
-        <p style="opacity:0.3; font-size:0.7rem;">© 2026 ELEVEN LOCAL BRAND. ALL RIGHTS RESERVED.</p>
+    <!-- Footer & Socials -->
+    <footer>
+        <div class="footer-logo">ELEVEN</div>
+        <div class="social-links">
+            <a href="https://instagram.com" target="_blank">Instagram</a>
+            <a href="https://tiktok.com" target="_blank">TikTok</a>
+            <a href="https://facebook.com" target="_blank">Facebook</a>
+        </div>
+        <p style="font-size: 0.7rem; opacity: 0.3;">© 2026 ELEVEN LOCAL BRAND. ALL RIGHTS RESERVED.</p>
     </footer>
 
-    <!-- Cart Sidebar -->
+    <!-- Cart Overlay -->
     <div class="cart-overlay" id="cartOverlay">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
             <h2 style="letter-spacing: 5px;">YOUR BAG</h2>
-            <span onclick="toggleCart()" style="font-size: 1.5rem; cursor:pointer;">✕</span>
+            <span onclick="toggleCart()" style="font-size: 1.5rem;">✕</span>
         </div>
-        <div id="cart-items" style="flex-grow:1; overflow-y:auto;"></div>
-        <div style="border-top: 2px solid black; padding-top: 20px;">
+        
+        <div id="cart-items">
+            <!-- Items added here via JS -->
+        </div>
+
+        <div style="border-top: 2px solid black; padding-top: 20px; margin-top: 20px;">
             <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1.4rem; margin-bottom:20px;">
                 <span>TOTAL</span>
                 <span><span id="cart-total">0</span> EGP</span>
             </div>
-            <button class="add-btn" style="background:#25d366;" onclick="checkoutWhatsApp()">ORDER VIA WHATSAPP</button>
+            <button class="add-btn" style="background: var(--accent);" onclick="checkoutWhatsApp()">
+                ORDER VIA WHATSAPP
+            </button>
         </div>
     </div>
 
     <script>
-        // 1. Cursor & Loader
+        // 1. Cursor movement
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
+
+        // 2. Hide Loader
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => document.getElementById('loader').style.visibility = 'hidden', 1000);
-            }, 1000);
+            }, 1500);
         });
 
-        // 2. Sales Notifications Logic
-        const names = ["محمد من دمياط", "سارة من المنصورة", "أحمد من القاهرة", "ياسين من الإسكندرية", "عمر من بورسعيد"];
-        const prods = ["تيشيرت Eleven Graphic", "هودي الـ Oversized", "القطعة رقم #15", "التيشيرت الأسود الجديد"];
-        
-        function showPop() {
-            const pop = document.getElementById('sales-pop');
-            document.getElementById('buyer-name').innerText = names[Math.floor(Math.random()*names.length)];
-            document.getElementById('buyer-action').innerText = "اشترى " + prods[Math.floor(Math.random()*prods.length)];
-            pop.classList.add('active');
-            setTimeout(() => pop.classList.remove('active'), 5000);
-        }
-        setInterval(showPop, 25000);
-
-        // 3. Products Loop (من 9 لـ 49)
+        // 3. Product Config
         const grid = document.getElementById('product-grid');
+        const basePath = "C:/Users/CompuLap/Downloads/ELEVEN (5)/"; 
+        const myPhone = "201062910161";
         let cart = [];
         let selections = {};
 
-        // العداد هيبدأ من القطعة 9 لحد القطعة 49
-        for (let i = 9; i <= 49; i++) {
+        // Loop to generate 40 products
+        for (let i = 9; i <= 48; i++) {
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
                 <div class="product-img">
-                    <!-- الكود بيقرأ الصورة مباشرة باسم رقمها المحطوط جنب ملف الـ html -->
-                    <img src="${i}.png" alt="Eleven Piece #${i}" onerror="this.src='https://placehold.co/500x700?text=ELEVEN+PIECE+${i}'">
+                    <img src="${basePath}${i}.png" alt="Eleven Piece" onerror="this.src='https://placehold.co/500x700?text=Piece+${i}'">
                 </div>
-                <div style="display:flex; justify-content:space-between; font-weight:900; margin-bottom:10px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:900; font-size:0.9rem;">
                     <span>ELEVEN PIECE #${i}</span>
                     <span>550 EGP</span>
                 </div>
@@ -210,12 +299,13 @@
             grid.appendChild(card);
         }
 
-        // أنميشن السكرول
+        // 4. Scroll Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.product-card').forEach(c => observer.observe(c));
 
+        // 5. Cart Logic
         function selectSize(btn, size, id) {
             const group = document.getElementById(`size-group-${id}`);
             group.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
@@ -226,32 +316,59 @@
         function toggleCart() { document.getElementById('cartOverlay').classList.toggle('active'); }
 
         function addToBag(id, name, price) {
-            if (!selections[id]) { alert("اختر المقاس الأول يا بطل"); return; }
-            cart.push({ id: Date.now(), name, price, size: selections[id] });
-            updateCart();
-            toggleCart();
+            if (!selections[id]) {
+                alert("Please select your size first.");
+                return;
+            }
+            cart.push({ cartId: Date.now(), name, price, size: selections[id] });
+            updateCartUI();
+            if(!document.getElementById('cartOverlay').classList.contains('active')) toggleCart();
         }
 
-        function updateCart() {
+        function removeFromBag(cartId) {
+            cart = cart.filter(item => item.cartId !== cartId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
             const container = document.getElementById('cart-items');
             let total = 0;
             container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align:center; opacity:0.5;">Your bag is empty.</p>';
+            }
+
             cart.forEach(item => {
                 total += item.price;
-                container.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
-                    <div><b>${item.name}</b><br><small>Size: ${item.size}</small></div>
-                    <span>${item.price} EGP</span>
-                </div>`;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <p style="font-weight:900;">${item.name}</p>
+                            <p style="font-size:0.7rem; opacity:0.6;">Size: ${item.size}</p>
+                        </div>
+                        <div style="display:flex; align-items:center;">
+                            <span style="font-weight:900;">${item.price} EGP</span>
+                            <span class="remove-btn" onclick="removeFromBag(${item.cartId})">✕</span>
+                        </div>
+                    </div>`;
             });
+
             document.getElementById('cart-count').innerText = cart.length;
             document.getElementById('cart-total').innerText = total;
         }
 
+        // 6. WhatsApp Checkout
         function checkoutWhatsApp() {
-            if (cart.length === 0) return;
-            let msg = "أوردر جديد من موقع Eleven:%0A%0A";
-            cart.forEach(i => msg += `- ${i.name} (مقاس: ${i.size})%0A`);
-            window.open(`https://wa.me/201062910161?text=${msg}%0Aإجمالي المبلغ: ${document.getElementById('cart-total').innerText} جنيه`);
+            if (cart.length === 0) return alert("Bag is empty");
+            
+            let message = "New Order from Eleven:%0A%0A";
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} | Size: ${item.size} | ${item.price} EGP%0A`;
+            });
+            message += `%0ATotal: ${document.getElementById('cart-total').innerText} EGP`;
+            
+            window.open(`https://wa.me/${myPhone}?text=${message}`, '_blank');
         }
     </script>
 </body>
