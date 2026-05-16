@@ -325,8 +325,7 @@
     </div>
 
     <script>
-        // دمج المسارين معاً: المسار النسبي لـ GitHub والمسار المحلي لجهازك كبديل تلقائي في حال الفشل
-        const primaryPath = "images/";
+        // المسار المحلي على جهازك كاحتياطي في حالة فشل المسار النسبي
         const localFallbackPath = "C:/Users/CompuLap/Downloads/ELEVEN (5)/";
 
         let currentLang = 'ar'; 
@@ -449,12 +448,11 @@
         }
         setInterval(updateTimer, 1000);
 
-        const selectedItems = [
-            9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
-            21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 
-            33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 
-            45, 46, 47, 48
-        ];
+        // مصفوفة الـ 40 منتج من 9 لـ 48
+        const selectedItems = [];
+        for (let i = 9; i <= 48; i++) {
+            selectedItems.push(i);
+        }
 
         const grid = document.getElementById('product-grid');
         let cart = [];
@@ -462,7 +460,7 @@
         let wishlist = [];
         let discount = 0;
 
-        // دالة ذكية لإصلاح مسار الصورة فوراً لو فشل المسار الأول
+        // دالة إصلاح المسار الذكية لو السيرفر أوفلاين
         function handleImgError(img, id) {
             if (img.getAttribute('data-retry') !== 'true') {
                 img.setAttribute('data-retry', 'true');
@@ -472,6 +470,7 @@
             }
         }
 
+        // دالة الـ Loop الأساسية لعرض المنتجات
         function renderProducts(itemsToRender) {
             grid.innerHTML = '';
             itemsToRender.forEach(i => {
@@ -480,13 +479,14 @@
                 const viewerText = translations[currentLang].viewing.replace("{num}", randomViewers);
 
                 const card = document.createElement('div');
-                card.className = `product-card`;
+                card.className = 'product-card';
                 card.setAttribute('data-id', i);
+                
                 card.innerHTML = `
                     <div class="sale-tag">SALE</div>
                     <button class="wishlist-btn ${isFav}" onclick="event.stopPropagation(); toggleWishlist(${i}, this)">❤</button>
                     <div class="product-img" onclick="openQuickView(${i})">
-                        <img src="${primaryPath}${i}.png" alt="Eleven Piece #${i}" onerror="handleImgError(this, ${i})">
+                        <img src="images/${i}.png" alt="Eleven Piece" onerror="handleImgError(this, ${i})">
                         <div class="quickview-hint">QUICK VIEW</div>
                     </div>
                     <div style="display:flex; justify-content:space-between; font-weight:900; margin-bottom:5px;">
@@ -523,7 +523,7 @@
             
             const qvImg = document.getElementById('qv-image-src');
             qvImg.removeAttribute('data-retry');
-            qvImg.src = `${primaryPath}${id}.png`;
+            qvImg.src = `images/${id}.png`;
             qvImg.onerror = function() { handleImgError(this, id); };
             
             document.getElementById('qv-desc').innerText = translations[currentLang].qvDesc;
