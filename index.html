@@ -325,8 +325,9 @@
     </div>
 
     <script>
-        // هنا تم تغيير المسار ليكون نسبي ومناسب لجهازك ولـ GitHub معاً!
-        const imageFolderPath = "images/";
+        // دمج المسارين معاً: المسار النسبي لـ GitHub والمسار المحلي لجهازك كبديل تلقائي في حال الفشل
+        const primaryPath = "images/";
+        const localFallbackPath = "C:/Users/CompuLap/Downloads/ELEVEN (5)/";
 
         let currentLang = 'ar'; 
         let currentTheme = 'dark';
@@ -461,6 +462,16 @@
         let wishlist = [];
         let discount = 0;
 
+        // دالة ذكية لإصلاح مسار الصورة فوراً لو فشل المسار الأول
+        function handleImgError(img, id) {
+            if (img.getAttribute('data-retry') !== 'true') {
+                img.setAttribute('data-retry', 'true');
+                img.src = `${localFallbackPath}${id}.png`;
+            } else {
+                img.src = `https://placehold.co/500x700?text=ELEVEN+PIECE+${id}`;
+            }
+        }
+
         function renderProducts(itemsToRender) {
             grid.innerHTML = '';
             itemsToRender.forEach(i => {
@@ -475,7 +486,7 @@
                     <div class="sale-tag">SALE</div>
                     <button class="wishlist-btn ${isFav}" onclick="event.stopPropagation(); toggleWishlist(${i}, this)">❤</button>
                     <div class="product-img" onclick="openQuickView(${i})">
-                        <img src="${imageFolderPath}${i}.png" alt="Eleven Piece #${i}" onerror="this.src='https://placehold.co/500x700?text=ELEVEN+PIECE+${i}'">
+                        <img src="${primaryPath}${i}.png" alt="Eleven Piece #${i}" onerror="handleImgError(this, ${i})">
                         <div class="quickview-hint">QUICK VIEW</div>
                     </div>
                     <div style="display:flex; justify-content:space-between; font-weight:900; margin-bottom:5px;">
@@ -509,8 +520,12 @@
         function openQuickView(id) {
             document.getElementById('qv-title').innerText = `${translations[currentLang].qvTitle} | #${id}`;
             document.getElementById('qv-display-name').innerText = `Eleven Oversized Piece #${id}`;
-            document.getElementById('qv-image-src').src = `${imageFolderPath}${id}.png`;
-            document.getElementById('qv-image-src').onerror = function() { this.src = `https://placehold.co/500x700?text=ELEVEN+PIECE+${id}`; };
+            
+            const qvImg = document.getElementById('qv-image-src');
+            qvImg.removeAttribute('data-retry');
+            qvImg.src = `${primaryPath}${id}.png`;
+            qvImg.onerror = function() { handleImgError(this, id); };
+            
             document.getElementById('qv-desc').innerText = translations[currentLang].qvDesc;
             
             document.getElementById('qv-actions-container').innerHTML = `
