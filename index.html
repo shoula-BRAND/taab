@@ -235,7 +235,6 @@
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
-        /* Sidebar Cart & Wishlist */
         .sidebar {
             position: fixed;
             top: 0;
@@ -312,7 +311,6 @@
             align-items: center;
             gap: 10px;
         }
-        /* Quickview Modal */
         .modal {
             position: fixed;
             top: 0;
@@ -431,14 +429,12 @@
     </div>
 
     <script>
-        // تكوينات وإعدادات النظام الأساسية
         let currentLang = 'en';
         let cart = [];
         let wishlist = [];
         let selectedSizes = {}; 
         const grid = document.getElementById('products-grid');
 
-        // مسارات الصور الاحتياطية (تعدل حسب مسار جهازك)
         const localFallbackPath = "C:/Users/CompuLap/Downloads/ELEVEN (5)/";
 
         const translations = {
@@ -464,17 +460,17 @@
             }
         };
 
-        // دالة الأمان للتعامل مع أخطاء مسارات الصور تلقائياً
         function handleImgError(imgElement, id) {
             if (!imgElement.getAttribute('data-tried-local')) {
                 imgElement.setAttribute('data-tried-local', 'true');
                 imgElement.src = `${localFallbackPath}${id}.png`;
-            } else {
+            } else if (!imgElement.getAttribute('data-tried-placeholder')) {
+                imgElement.setAttribute('data-tried-placeholder', 'true');
                 imgElement.src = `https://placehold.co/500x700?text=Piece+${id}`;
             }
         }
 
-        // Loop الأساسي لإنشاء ورندر الـ 40 منتج من (9 إلى 48)
+        // Loop الأساسي لإنشاء المنتجات من رقم 9 حتى رقم 48 بشكل ديناميكي كامل دون كسر الـ CSS
         for (let i = 9; i <= 48; i++) {
             const randomViewers = Math.floor(Math.random() * 15) + 8;
             const isFav = wishlist.includes(i) ? 'active' : '';
@@ -509,7 +505,6 @@
             grid.appendChild(card);
         }
 
-        // تفعيل أنيميشن الـ Scroll لعرض كروت المنتجات بشكل انسيابي
         setTimeout(() => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
@@ -517,9 +512,8 @@
             document.querySelectorAll('.product-card').forEach(c => observer.observe(c));
         }, 50);
 
-        // وظائف اختيار المقاسات للمنتجات
         function selectSize(btn, size, id) {
-            const container = document.getElementById(`size-group-${id}`) || document.getElementById('modal-size-group');
+            const container = btn.parentElement;
             if (container) {
                 container.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
             }
@@ -527,7 +521,6 @@
             selectedSizes[id] = size;
         }
 
-        // إضافة وإعداد المنتجات داخل حقيبة التسوق
         function addToBag(id, name, price) {
             const size = selectedSizes[id];
             if (!size) {
@@ -544,7 +537,6 @@
             openSidebar('cart');
         }
 
-        // نظام التحكم بالمفضلة (Wishlist)
         function toggleWishlist(id, btn) {
             const index = wishlist.indexOf(id);
             if (index > -1) {
@@ -557,14 +549,11 @@
             updateUI();
         }
 
-        // تحديث واجهات الاستخدام والأرقام التلقائية بالعدادات
         function updateUI() {
             document.getElementById('cart-count').innerText = cart.reduce((sum, i) => sum + i.qty, 0);
             document.getElementById('wishlist-count').innerText = wishlist.length;
         }
 
-        // فتح القائمة الجانبية (سواء المفضلة أو السلة)
-        let activeSidebarType = 'cart';
         function openSidebar(type) {
             activeSidebarType = type;
             const sidebar = document.getElementById('sidebar');
@@ -619,7 +608,6 @@
             document.getElementById('sidebar').classList.remove('open');
         }
 
-        // نافذة العرض السريع المتقدمة (Quick View)
         function openQuickView(id) {
             const modal = document.getElementById('quickview-modal');
             const img = document.getElementById('modal-img');
@@ -638,6 +626,11 @@
                 <button class="size-btn" onclick="selectSize(this, 'XL', ${id})">XL</button>
             `;
             
+            if(selectedSizes[id]) {
+                const checkedBtn = Array.from(sizeGroup.querySelectorAll('.size-btn')).find(b => b.innerText === selectedSizes[id]);
+                if(checkedBtn) checkedBtn.classList.add('selected');
+            }
+
             addBtn.innerText = translations[currentLang].addToBag;
             addBtn.onclick = function() { addToBag(id, `Piece #${id}`, 550); closeQuickView(); };
 
@@ -648,7 +641,6 @@
             document.getElementById('quickview-modal').style.display = 'none';
         }
 
-        // التبديل بين اللغتين (العربية والإنجليزية) وتحديث المحتوى في نفس اللحظة
         function toggleLang() {
             currentLang = currentLang === 'en' ? 'ar' : 'en';
             document.getElementById('lang-indicator').innerText = currentLang.toUpperCase();
@@ -656,7 +648,6 @@
             if (currentLang === 'ar') document.body.classList.add('rtl-mode');
             else document.body.classList.remove('rtl-mode');
             
-            // تحديث العناوين ونصوص الأزرار والمشاهدات مباشرة داخل الكروت
             document.querySelectorAll('.product-card').forEach(card => {
                 const id = card.getAttribute('data-id');
                 const randomViewers = Math.floor(Math.random() * 15) + 8;
@@ -667,14 +658,12 @@
             updateUI();
         }
 
-        // التبديل السلس بين الـ Dark Mode والـ Light Mode
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
         }
 
-        // دالة إرسال الطلب النهائي ومحتويات السلة عبر الـ WhatsApp
         function checkoutWhatsApp() {
             if (cart.length === 0) return;
             let text = `${translations[currentLang].ordered}\n\n`;
