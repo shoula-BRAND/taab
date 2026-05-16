@@ -233,10 +233,15 @@
             grid.appendChild(card);
         }
 
+        // تفعيل حركة ظهور المنتجات اللطيفة (Fade-in Grid Elements)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.product-card').forEach(c => observer.observe(c));
+        
+        // تعديل بسيط لضمان التقاط الكروت البرمجية بعد تصييرها في الـ Loop
+        setTimeout(() => {
+            document.querySelectorAll('.product-card').forEach(c => observer.observe(c));
+        }, 100);
 
         function selectSize(btn, size, id) {
             const group = document.getElementById(`size-group-${id}`);
@@ -254,7 +259,6 @@
             toggleCart();
         }
 
-        // ميزة الحذف من السلة المحدثة
         function removeFromCart(itemId) {
             cart = cart.filter(item => item.id !== itemId);
             updateCart();
