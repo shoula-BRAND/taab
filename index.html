@@ -370,14 +370,13 @@
             }
         };
 
-        // Loop to generate 40 products (من 9 لـ 48) مع دمج الـ Quick View والـ Search tags
+       // Loop to generate 40 products
         for (let i = 9; i <= 48; i++) {
             const card = document.createElement('div');
             card.className = 'product-card';
-            card.setAttribute('data-id', i); // لتسهيل عملية الفلترة
             card.innerHTML = `
                 <div class="product-img">
-                    <img src="${basePath}${i}.png" alt="Eleven Piece #${i}" onerror="this.src='https://placehold.co/500x700?text=Piece+${i}'">
+                    <img src="${basePath}${i}.png" alt="Eleven Piece" onerror="this.src='https://placehold.co/500x700?text=Piece+${i}'">
                     <div class="quick-view-overlay">
                         <button class="quick-view-btn" onclick="openQuickView(${i})">${dictionary[currentLang].quickView}</button>
                     </div>
