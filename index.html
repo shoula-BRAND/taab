@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eleven® | local Brand</title>
+    <title>Eleven® |  local Brand</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&family=Cairo:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap');
 
         :root {
             --black: #000000;
@@ -17,7 +17,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
 
         body {
-            font-family: 'Inter', 'Cairo', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--white);
             color: var(--black);
             overflow-x: hidden;
@@ -112,8 +112,6 @@
         }
 
         .nav-logo { font-weight: 900; letter-spacing: 4px; font-size: 1.2rem; }
-        .nav-controls { display: flex; align-items: center; gap: 20px; }
-        .lang-btn { background: none; border: 1px solid black; padding: 5px 10px; font-weight: bold; font-family: inherit; }
         .cart-btn { font-weight: 900; border-bottom: 2px solid black; padding-bottom: 2px; }
 
         /* 5. Brand Story Section */
@@ -125,16 +123,8 @@
         .brand-story h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 25px; text-transform: uppercase; }
         .brand-story p { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: #444; }
 
-        /* Search Bar Style */
-        .search-container { max-width: 500px; margin: 0 auto 40px auto; padding: 0 5%; }
-        .search-input {
-            width: 100%; padding: 15px 25px; font-size: 1rem; border: 2px solid var(--black);
-            background: transparent; text-align: center; font-weight: 900; outline: none;
-            font-family: inherit;
-        }
-
         /* 6. Product Grid */
-        .container { max-width: 1400px; margin: 40px auto; padding: 0 5%; }
+        .container { max-width: 1400px; margin: 80px auto; padding: 0 5%; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 50px; }
         
         .product-card { 
@@ -149,15 +139,6 @@
         }
         .product-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .product-card:hover .product-img img { transform: scale(1.08); }
-
-        /* Quick View Hover Tag */
-        .quick-view-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.2); display: flex; justify-content: center;
-            align-items: center; opacity: 0; transition: 0.3s;
-        }
-        .product-img:hover .quick-view-overlay { opacity: 1; }
-        .quick-view-btn { padding: 12px 25px; background: white; color: black; font-weight: 900; font-size: 0.8rem; letter-spacing: 2px; border: none; text-transform: uppercase; }
 
         /* Size Buttons */
         .size-selector { display: flex; gap: 10px; margin-bottom: 15px; }
@@ -184,21 +165,6 @@
         .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
         .remove-btn { color: #ff4444; font-weight: bold; margin-left: 15px; }
 
-        /* Quick View Modal Style */
-        .modal-overlay {
-            position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6);
-            z-index: 3000; display: flex; justify-content: center; align-items: center;
-            opacity: 0; visibility: hidden; transition: 0.4s; backdrop-filter: blur(5px);
-        }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal-content {
-            background: white; width: 90%; max-width: 700px; padding: 40px; display: flex; gap: 30px; position: relative;
-        }
-        .modal-close { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; }
-        .modal-left { flex: 1; height: 400px; background: var(--grey); }
-        .modal-left img { width: 100%; height: 100%; object-fit: cover; }
-        .modal-right { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-
         /* 8. Footer & Social Media */
         footer {
             background: var(--black); color: var(--white);
@@ -224,7 +190,7 @@
 
     <!-- Loader -->
     <div id="loader">
-        <h1>%ELEVEN%</h1>
+        <h1>ELEVEN</h1>
     </div>
 
     <!-- Hero Section -->
@@ -234,53 +200,27 @@
         </video>
         <div class="hero-content">
             <h1 class="hero-title">ELEVEN</h1>
-            <p class="hero-subtitle" id="hero-sub">eleven local brand</p>
+            <p class="hero-subtitle">eleven local brand</p>
         </div>
     </header>
 
     <!-- Brand Story -->
     <section class="brand-story">
-        <h2 id="story-title">Designed in Egypt. Made for the World.</h2> 
-        <p id="story-desc">At Eleven, we redefine streetwear through oversized silhouettes and premium heavy cotton. Each piece is a statement of quality and urban culture.</p>
+        <h2>Designed in Egypt. Made for the World.</h2> 
+		
+        <p>At Eleven, we redefine streetwear through oversized silhouettes and premium heavy cotton. Each piece is a statement of quality and urban culture.</p>
     </section>
 
     <!-- Sticky Nav -->
     <nav>
-        <div class="nav-logo">ELEVEN</div>
-        <div class="nav-controls">
-            <!-- زر اختيار اللغة -->
-            <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">العربية</button>
-            <div class="cart-btn" onclick="toggleCart()" id="bagBtn">BAG (<span id="cart-count">0</span>)</div>
-        </div>
+        <div class="nav-logo">ELEVEN </div>
+        <div class="cart-btn" onclick="toggleCart()">BAG (<span id="cart-count">0</span>)</div>
     </nav>
-
-    <!-- Search Input Area -->
-    <div class="search-container">
-        <input type="text" id="searchBar" class="search-input" placeholder="Search by piece number... (e.g. 15)" oninput="filterProducts()">
-    </div>
 
     <!-- Product Section -->
     <section class="container">
         <div class="product-grid" id="product-grid"></div>
     </section>
-
-    <!-- Quick View Modal Container -->
-    <div class="modal-overlay" id="quickviewModal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeQuickView()">✕</span>
-            <div class="modal-left">
-                <img id="modalImg" src="" alt="Eleven Piece">
-            </div>
-            <div class="modal-right">
-                <h2 id="modalTitle" style="font-weight: 900; margin-bottom: 10px;">ELEVEN PIECE</h2>
-                <h3 style="font-weight: 900; margin-bottom: 20px; opacity: 0.7;">550 EGP</h3>
-                <div class="size-selector" id="modal-size-group">
-                    <!-- Dynamic sizes in modal -->
-                </div>
-                <button class="add-btn" id="modalAddBtn">Add To Bag</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer & Socials -->
     <footer>
@@ -296,7 +236,7 @@
     <!-- Cart Overlay -->
     <div class="cart-overlay" id="cartOverlay">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="letter-spacing: 5px;" id="cartTitle">YOUR BAG</h2>
+            <h2 style="letter-spacing: 5px;">YOUR BAG</h2>
             <span onclick="toggleCart()" style="font-size: 1.5rem;">✕</span>
         </div>
         
@@ -306,10 +246,10 @@
 
         <div style="border-top: 2px solid black; padding-top: 20px; margin-top: 20px;">
             <div style="display:flex; justify-content:space-between; font-weight:900; font-size:1.4rem; margin-bottom:20px;">
-                <span id="totalLabel">TOTAL</span>
+                <span>TOTAL</span>
                 <span><span id="cart-total">0</span> EGP</span>
             </div>
-            <button class="add-btn" style="background: var(--accent);" onclick="checkoutWhatsApp()" id="orderBtn">
+            <button class="add-btn" style="background: var(--accent);" onclick="checkoutWhatsApp()">
                 ORDER VIA WHATSAPP
             </button>
         </div>
@@ -331,55 +271,20 @@
             }, 1500);
         });
 
-        // 3. Product Config & Multi-language Dictionary
+        // 3. Product Config
         const grid = document.getElementById('product-grid');
         const basePath = "C:/Users/CompuLap/Downloads/ELEVEN (5)/"; 
         const myPhone = "201062910161";
         let cart = [];
         let selections = {};
-        let currentLang = 'en';
 
-        const dictionary = {
-            en: {
-                heroSub: "eleven local brand",
-                storyTitle: "Designed in Egypt. Made for the World.",
-                storyDesc: "At Eleven, we redefine streetwear through oversized silhouettes and premium heavy cotton. Each piece is a statement of quality and urban culture.",
-                searchPlaceholder: "Search by piece number... (e.g. 15)",
-                bagBtn: "BAG",
-                cartTitle: "YOUR BAG",
-                totalLabel: "TOTAL",
-                orderBtn: "ORDER VIA WHATSAPP",
-                emptyCart: "Your bag is empty.",
-                sizeAlert: "Please select your size first.",
-                quickView: "Quick View",
-                addBtn: "Add To Bag"
-            },
-            ar: {
-                heroSub: "براند محلي بمواصفات عالمية",
-                storyTitle: "صُمم في مصر.. ليغزو العالم.",
-                storyDesc: "في Eleven، نعيد تعريف ملابس الشارع من خلال القصات الواسعة والقطن الثقيل الفاخر. كل قطعة هي تجسيد للجودة والثقافة الحضرية.",
-                searchPlaceholder: "ابحث برقم القطعة... (مثال: 15)",
-                bagBtn: "الحقيبة",
-                cartTitle: "حقيبتك",
-                totalLabel: "الإجمالي",
-                orderBtn: "طلب عبر الواتساب",
-                emptyCart: "حقيبتك فارغة حالياً.",
-                sizeAlert: "من فضلك اختر المقاس أولاً.",
-                quickView: "عرض سريع",
-                addBtn: "أضف إلى الحقيبة"
-            }
-        };
-
-       // Loop to generate 40 products
+        // Loop to generate 40 products
         for (let i = 9; i <= 48; i++) {
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
                 <div class="product-img">
                     <img src="${basePath}${i}.png" alt="Eleven Piece" onerror="this.src='https://placehold.co/500x700?text=Piece+${i}'">
-                    <div class="quick-view-overlay">
-                        <button class="quick-view-btn" onclick="openQuickView(${i})">${dictionary[currentLang].quickView}</button>
-                    </div>
                 </div>
                 <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:900; font-size:0.9rem;">
                     <span>ELEVEN PIECE #${i}</span>
@@ -390,7 +295,7 @@
                     <button class="size-btn" onclick="selectSize(this, 'L', ${i})">L</button>
                     <button class="size-btn" onclick="selectSize(this, 'XL', ${i})">XL</button>
                 </div>
-                <button class="add-btn" id="add-btn-${i}" onclick="addToBag(${i}, 'Piece #${i}', 550)">${dictionary[currentLang].addBtn}</button>
+                <button class="add-btn" onclick="addToBag(${i}, 'Piece #${i}', 550)">Add To Bag</button>
             `;
             grid.appendChild(card);
         }
@@ -401,31 +306,22 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.product-card').forEach(c => observer.observe(c));
 
-        // 5. Cart & Selection Logic
+        // 5. Cart Logic
         function selectSize(btn, size, id) {
-            const group = document.getElementById(`size-group-${id}`) || document.getElementById('modal-size-group');
+            const group = document.getElementById(`size-group-${id}`);
             group.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
             selections[id] = size;
-
-            // إذا تم الاختيار داخل الـ Quick View، ينعكس تلقائياً على الكارت الرئيسي بالخلفية
-            const mainGroup = document.getElementById(`size-group-${id}`);
-            if (mainGroup) {
-                mainGroup.querySelectorAll('.size-btn').forEach(b => {
-                    if(b.innerText === size) b.classList.add('selected');
-                    else b.classList.remove('selected');
-                });
-            }
         }
 
         function toggleCart() { document.getElementById('cartOverlay').classList.toggle('active'); }
 
         function addToBag(id, name, price) {
             if (!selections[id]) {
-                alert(dictionary[currentLang].sizeAlert);
+                alert("Please select your size first.");
                 return;
             }
-            cart.push({ cartId: Date.now(), id, name, price, size: selections[id] });
+            cart.push({ cartId: Date.now(), name, price, size: selections[id] });
             updateCartUI();
             if(!document.getElementById('cartOverlay').classList.contains('active')) toggleCart();
         }
@@ -441,7 +337,7 @@
             container.innerHTML = '';
 
             if (cart.length === 0) {
-                container.innerHTML = `<p style="text-align:center; opacity:0.5;">${dictionary[currentLang].emptyCart}</p>`;
+                container.innerHTML = '<p style="text-align:center; opacity:0.5;">Your bag is empty.</p>';
             }
 
             cart.forEach(item => {
@@ -463,99 +359,17 @@
             document.getElementById('cart-total').innerText = total;
         }
 
-        // 6. WhatsApp Checkout (تعديل تفاصيل الفاتورة لتشمل رقم القطعة، المقاس، والسعر بدقة)
+        // 6. WhatsApp Checkout
         function checkoutWhatsApp() {
-            if (cart.length === 0) return alert(currentLang === 'en' ? "Bag is empty" : "الحقيبة فارغة");
+            if (cart.length === 0) return alert("Bag is empty");
             
-            let message = "New Order from Eleven Website:%0A%0A";
+            let message = "New Order from Eleven:%0A%0A";
             cart.forEach((item, index) => {
-                // استخراج رقم القطعة من الـ ID أو الاسم
-                message += `${index + 1}. [Product ID/Number: #${item.id}] | [Name: ${item.name}] | [Size: ${item.size}] | [Price: ${item.price} EGP]%0A`;
+                message += `${index + 1}. ${item.name} | Size: ${item.size} | ${item.price} EGP%0A`;
             });
-            message += `%0ATotal Bill Amount: ${document.getElementById('cart-total').innerText} EGP`;
+            message += `%0ATotal: ${document.getElementById('cart-total').innerText} EGP`;
             
             window.open(`https://wa.me/${myPhone}?text=${message}`, '_blank');
-        }
-
-        // 7. Search Bar Filter Function
-        function filterProducts() {
-            const query = document.getElementById('searchBar').value.trim();
-            const cards = document.querySelectorAll('.product-card');
-            
-            cards.forEach(card => {
-                const id = card.getAttribute('data-id');
-                if (query === '' || id.includes(query)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // 8. Quick View Functions
-        function openQuickView(id) {
-            const modal = document.getElementById('quickviewModal');
-            const img = document.getElementById('modalImg');
-            const title = document.getElementById('modalTitle');
-            const sizeGroup = document.getElementById('modal-size-group');
-            const addBtn = document.getElementById('modalAddBtn');
-
-            img.src = `${basePath}${id}.png`;
-            img.onerror = function() { this.src = `https://placehold.co/500x700?text=Piece+${id}`; };
-            title.innerText = `ELEVEN PIECE #${id}`;
-
-            // بناء أزرار المقاسات داخل الـ Modal للمنتج المختار
-            sizeGroup.innerHTML = `
-                <button class="size-btn ${selections[id] === 'M' ? 'selected' : ''}" onclick="selectSize(this, 'M', ${id})">M</button>
-                <button class="size-btn ${selections[id] === 'L' ? 'selected' : ''}" onclick="selectSize(this, 'L', ${id})">L</button>
-                <button class="size-btn ${selections[id] === 'XL' ? 'selected' : ''}" onclick="selectSize(this, 'XL', ${id})">XL</button>
-            `;
-
-            addBtn.innerText = dictionary[currentLang].addBtn;
-            addBtn.onclick = function() {
-                addToBag(id, `Piece #${id}`, 550);
-                closeQuickView();
-            };
-
-            modal.classList.add('active');
-        }
-
-        function closeQuickView() {
-            document.getElementById('quickviewModal').classList.remove('active');
-        }
-
-        // 9. Language Toggle Function
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'ar' : 'en';
-            
-            // تحديث نصوص الموقع الثابتة بناءاً على القاموس
-            document.getElementById('langBtn').innerText = currentLang === 'en' ? 'العربية' : 'English';
-            document.getElementById('hero-sub').innerText = dictionary[currentLang].heroSub;
-            document.getElementById('story-title').innerText = dictionary[currentLang].storyTitle;
-            document.getElementById('story-desc').innerText = dictionary[currentLang].storyDesc;
-            document.getElementById('searchBar').placeholder = dictionary[currentLang].searchPlaceholder;
-            document.getElementById('bagBtn').innerHTML = `${dictionary[currentLang].bagBtn} (<span id="cart-count">${cart.length}</span>)`;
-            document.getElementById('cartTitle').innerText = dictionary[currentLang].cartTitle;
-            document.getElementById('totalLabel').innerText = dictionary[currentLang].totalLabel;
-            document.getElementById('orderBtn').innerText = dictionary[currentLang].orderBtn;
-
-            // تحديث نصوص الأزرار والـ Overlays داخل الكروت
-            document.querySelectorAll('.quick-view-btn').forEach(btn => btn.innerText = dictionary[currentLang].quickView);
-            for (let i = 9; i <= 48; i++) {
-                const btn = document.getElementById(`add-btn-${i}`);
-                if(btn) btn.innerText = dictionary[currentLang].addBtn;
-            }
-            
-            // تحديث الـ اتجاه لعرض عربي سليم وبدون التأثير على الهيكل العام
-            if(currentLang === 'ar') {
-                document.body.style.direction = 'rtl';
-                document.getElementById('searchBar').style.direction = 'rtl';
-            } else {
-                document.body.style.direction = 'ltr';
-                document.getElementById('searchBar').style.direction = 'ltr';
-            }
-            
-            updateCartUI(); // لإعادة تصيير نصوص الحقيبة الفارغة باللغة الجديدة
         }
     </script>
 </body>
