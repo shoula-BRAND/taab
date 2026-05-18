@@ -1,4 +1,170 @@
-<script type="importmap">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مساعدك الفقهي والوعظي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1b4332;
+            --secondary-color: #2d6a4f;
+            --accent-color: #d4af37;
+            --bg-color: #f4f7f6;
+            --text-color: #2d3748;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 600px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border-top: 5px solid var(--accent-color);
+        }
+
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .chat-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .chat-header p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .chat-box {
+            height: 400px;
+            padding: 20px;
+            overflow-y: auto;
+            background: #fafafa;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            white-space: pre-line;
+        }
+
+        .message.user {
+            background-color: var(--secondary-color);
+            color: white;
+            align-self: flex-start;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message.ai {
+            background-color: #eaeaea;
+            color: var(--text-color);
+            align-self: flex-end;
+            border-bottom-left-radius: 2px;
+            border-right: 4px solid var(--accent-color);
+        }
+
+        .status-message {
+            align-self: center;
+            background: #fff3cd;
+            color: #856404;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 15px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            gap: 10px;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .input-area input:focus {
+            border-color: var(--secondary-color);
+        }
+
+        .input-area button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .input-area button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1><i class="fas fa-mosque"></i> المستشار الفقهي والوعظي</h1>
+            <p>اسأل عما يهمك في أمور دينك ونقاشك الفقهي</p>
+        </div>
+
+        <div class="chat-box" id="chatBox">
+            <div class="message ai">مرحباً بك. كيف يمكنني مساعدتك اليوم في تصفح الأدلة الفقهية واستنباط المواعظ العطرة؟</div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="اكتب سؤالك الفقهي هنا..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script type="importmap">
       {
         "imports": {
           "@google/generative-ai": "https://esm.run/@google/generative-ai"
@@ -9,16 +175,17 @@
     <script type="module">
         import { GoogleGenerativeAI } from "@google/generative-ai";
 
-        // تأكد من وضع مفتاحك الجديد والسري هنا مكان النص
-        const API_KEY = "ضع_مفتاح_جوجل_الخاص_بك_هنا"; 
+        // ⚠️ ضع مفتاح الـ API الجديد والسري الخاص بك هنا بين علامتي التنصيص
+        const API_KEY = "AIzaSyBl6KShsb4HPY7ababzxUDdVCNe_pomO5s"; 
 
         const genAI = new GoogleGenerativeAI(AIzaSyBl6KShsb4HPY7ababzxUDdVCNe_pomO5s);
         
-        // إجبار المكتبة على استخدام إصدار السيرفر المستقر v1 لمنع خطأ 404
+        // تعديل جوهري: إجبار المكتبة على توجيه طلباتها لإصدار السيرفر المستقر v1 لحل مشكلة الـ 404
         const model = genAI.getGenerativeModel({ 
             model: "gemini-1.5-flash"
         }, { apiVersion: 'v1' }); 
 
+        // بدء جلسة حوار ذكية مع إرفاق تعليمات النظام بداخل التهيئة الأساسية للمحادثة
         const chat = model.startChat({
             history: [],
             generationConfig: { 
@@ -34,9 +201,11 @@
 
             if (!text) return;
 
+            // 1. عرض رسالة المستخدم في واجهة الشات
             appendMessage(text, 'user');
             inputField.value = "";
 
+            // 2. إظهار رسالة الانتظار والتحميل للمستخدم
             const loadingDiv = document.createElement("div");
             loadingDiv.className = "status-message";
             loadingDiv.id = "loadingStatus";
@@ -45,21 +214,24 @@
             chatBox.scrollTop = chatBox.scrollHeight;
 
             try {
+                // 3. تمرير السؤال للنموذج عبر الـ SDK الرسمي واستقبال النص
                 const result = await chat.sendMessage(text);
                 const responseText = await result.response.text();
                 
+                // إزالة شارة التحميل فور الاستجابة
                 if (document.getElementById("loadingStatus")) {
                     document.getElementById("loadingStatus").remove();
                 }
 
+                // 4. طباعة رد المستشار الذكي في واجهة الحوار
                 appendMessage(responseText, 'ai');
 
             } catch (error) {
-                console.error(error);
+                console.error("SDK Execution Error:", error);
                 if (document.getElementById("loadingStatus")) {
                     document.getElementById("loadingStatus").remove();
                 }
-                appendMessage("عذرًا، حدث خطأ في الاتصال بالخادم الشرعي. تأكد من تفعيل مفتاح الـ API الخاص بك بشكل صحيح وصلاحيته.", 'ai');
+                appendMessage("عذرًا أخي، حدث عائق أثناء جلب الفتوى من الخادم الشرعي. تأكد من إدخال الـ API Key الجديد والنشط الخاص بك بشكل صحيح داخل ملف الكود.", 'ai');
             }
         };
 
@@ -78,3 +250,5 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
     </script>
+</body>
+</html>
