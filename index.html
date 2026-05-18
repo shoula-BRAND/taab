@@ -144,14 +144,14 @@
     <!-- [ صفحة المستشار الفقهي: الذكاء الاصطناعي الكامل ] -->
     <div id="page-ai" class="page-section">
         <div class="container">
-            <h3 class="section-title">🤖 مستشارك الفقهي والشرعي والوعظي <span class="badge badge-accent">Gemini 1.5 Pro حقيقي</span></h3>
+            <h3 class="section-title">🤖 مستشارك الفقهي والشرعي والوعظي <span class="badge badge-accent">Gemini 1.5 Flash حيّ</span></h3>
             <p style="margin-bottom:15px; font-size:14px; color:var(--text-muted)">تناقش مع الذكاء الاصطناعي الحي، اسأله عن تفسير الآيات، فضل السور، أو الفتاوى اليومية المبسطة بوعي فقهي كامل:</p>
             
             <div class="ai-chat-box">
                 <div class="ai-suggestions">
                     <button class="badge badge-outline badge-clickable" onclick="askQuickAi('ما هي شروط قبول العمل الصالح في الإسلام؟')">شروط قبول العمل؟</button>
                     <button class="badge badge-outline badge-clickable" onclick="askQuickAi('كيف أحقق الخشوع التام والطمأنينة في صلاتي؟')">كيف أخشع بالصلاة؟</button>
-                    <button class="badge badge-outline badge-clickable" onclick="askQuickAi('اشرح لي باختصار فضل قراءة سورة الكهف يوم الجمعة')">فضل سورة الكهف؟</button>
+                    <button class="badge badge-outline badge-clickable" onclick="askQuickAi('اشرح لي باختصار فضل قراءة سورة الكهف يوم الجمعة')">فضل سورة الكهف?</button>
                     <button class="badge badge-outline badge-clickable" onclick="askQuickAi('أريد نصيحة بليغة وقصيرة تشجعني على حفظ القرآن الكريم')">نصيحة لحفظ القرآن</button>
                 </div>
                 <div class="ai-messages" id="aiMessages">
@@ -302,19 +302,17 @@
 
     <script>
         // ==========================================
-        // 🤖 ربط نظام شات الـ AI الكامل (Gemini API) حياً
+        // 🤖 ربط نظام شات الـ AI الكامل المتوافق مع المتصفحات
         // ==========================================
         
-        // ضع الـ API Key الجديد السري الخاص بك هنا
+        // ضع الـ API Key الجديد السري والنشط الخاص بك هنا
         const GEMINI_API_KEY = "AIzaSyD159Fbm6O5gL1oyp_NIm0SkFgA2Kcrcjg"; 
 
-        const SYSTEM_INSTRUCTION = `
-        أنت مستشار فقهي، وعظي، وإسلامي ذكي واسمك "نور الهدى AI" في بوابة نور الإيمان الرقمية.
-        - يجب أن تبني إجاباتك كلياً على نصوص القرآن الكريم، والسنة النبوية الصحيحة المطهرة، والآراء المعتمدة بيسر ودون تعقيد.
-        - تحدث دوماً باللغة العربية الفصحى، بأسلوب رصين، وقور، ملؤه الاحترام، المحبة، والتعاطف والرفق بالسائل.
-        - استخدم التنسيق المنظم (مثل النقاط، العناوين العريضة باستخدام النجوم) لجعل قراءة الرسالة مريحة داخل شاشات الشات.
-        - إذا سألك المستخدم في مجالات خارج الدين (مثل البرمجة، السياسة، أو الطبخ)، وجهه بلطف معتذراً منه ومبيناً أن مجالك التخصصي هو الإرشاد الفقهي والوعظي والثقافة الإسلامية فحسب.
-        `;
+        const SYSTEM_INSTRUCTION = `أنت مستشار فقهي وعظي إسلامي ذكي واسمك "نور الهدى AI".
+- يجب أن تبني إجاباتك كلياً على نصوص القرآن الكريم، والسنة النبوية الصحيحة.
+- تحدث دوماً باللغة العربية الفصحى، بأسلوب رصين، وقور ومريح للسائل.
+- استخدم التنسيق المنظم (العناوين العريضة باستخدام النجوم والنقاط).
+- إذا سألك المستخدم في مجالات خارج الدين، اعتذر منه بلطف وبيّن أن مجالك هو الإرشاد الفقهي والوعظي والثقافة الإسلامية فحسب.`;
 
         let chatHistory = [];
 
@@ -323,9 +321,11 @@
             const query = inputEl.value.trim();
             if (!query) return;
 
+            // إظهار رسالة المستخدم في الواجهة
             appendMessage(query, 'user');
             inputEl.value = "";
 
+            // إظهار شارة التفكير والانتظار
             const messagesContainer = document.getElementById('aiMessages');
             const thinkingDiv = document.createElement('div');
             thinkingDiv.className = "msg bot";
@@ -334,34 +334,44 @@
             messagesContainer.appendChild(thinkingDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            chatHistory.push({ role: "user", parts: [{ text: query }] });
+            // دمج التوجيهات الفقهية مباشرة في محتوى الطلب لتخطي القيود الأمنية للمتصفح
+            const promptWithInstruction = `${SYSTEM_INSTRUCTION}\n\nسؤال المستخدم الحالي: ${query}`;
+            chatHistory.push({ role: "user", parts: [{ text: promptWithInstruction }] });
 
             try {
-                // استدعاء الموديل السريع والمستقر لإنشاء المحتوى حياً عبر السيرفر الرسمي لجوجل
+                // الاتصال المباشر بخوادم جوجل لإنشاء المحتوى
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         contents: chatHistory,
-                        systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
                         generationConfig: { temperature: 0.3, maxOutputTokens: 800 }
                     })
                 });
 
                 const data = await response.json();
-                document.getElementById('aiThinking').remove();
+                
+                // إزالة شارة التفكير
+                if (document.getElementById('aiThinking')) {
+                    document.getElementById('aiThinking').remove();
+                }
 
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     let aiReply = data.candidates[0].content.parts[0].text;
                     appendMessage(aiReply, 'bot');
+                    
+                    // حفظ رد الـ AI في الذاكرة لتتابع السياق
                     chatHistory.push({ role: "model", parts: [{ text: aiReply }] });
                 } else {
-                    appendMessage("أعتذر منك يا أخي، واجهت عائقاً في معالجة طلبك الفقهي حالياً، يرجى إعادة المحاولة.", 'bot');
+                    console.error("خطأ استجابة:", data);
+                    appendMessage("تنبيه: يرجى التأكد من استبدال المفتاح القديم بـ API Key جديد تماماً من Google AI Studio لأن القديم تم حظره أمنياً تلقائياً.", 'bot');
                 }
             } catch (error) {
                 console.error("Gemini API Error:", error);
-                document.getElementById('aiThinking').remove();
-                appendMessage("تأخر الرد نظراً لعدم إدخال API Key صالح أو مشكلة بالاتصال. تأكد من إعداد المفتاح بشكل سليم.", 'bot');
+                if (document.getElementById('aiThinking')) {
+                    document.getElementById('aiThinking').remove();
+                }
+                appendMessage("تعذر الاتصال بالخوادم، يرجى التحقق من اتصالك بالإنترنت وصلاحية الـ API Key المستعمل.", 'bot');
             }
         }
 
@@ -372,7 +382,6 @@
             const msg = document.createElement('div'); 
             msg.className = `msg ${sender}`; 
             if (sender === 'bot') {
-                // استبدال كود النجوم بالخط العريض والنبرات لتبدو الشارات أنيقة
                 msg.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
             } else {
                 msg.innerText = text;
@@ -393,7 +402,7 @@
 
         const azkarDatabase = {
             sabah: [
-                { t: "آية الكرسي: اللَّهُ Lَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...", c: 1 },
+                { t: "آية الكرسي: اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...", c: 1 },
                 { t: "بِاسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ", c: 3 },
                 { t: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ", c: 1 }
             ],
@@ -421,7 +430,7 @@
 
         const hadithsData = [
             { t: "حديث 1: إنما الأعمال بالنيات", c: "عَنْ أَمِيرِ المُؤمِنِينَ أَبِي حَفْصٍ عُمَرَ بْنِ الخَطَّابِ رَضِيَ اللهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللهِ ﷺ يَقُولُ: «إنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوْ امْرَأَةٍ يَنْكِحُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ» [رواه البخاري ومسلم]." },
-            { t: "حديث 2: الدين النصيحة", c: "عَنْ أَبِي رُقَيَّةَ تَمِيمِ بْنِ أَوْسٍ الدَّارِيِّ رَضِيَ اللهُ عَنْهُ أَنَّ النَّبِيَّ ﷺ قَالَ: «الدِّينُ النَّصِيحَةُ» قُلْنَا: لِمَنْ؟ قَالَ: «لِلَّهِ، وَلِكِتَابِهِ، وَلِرَسُولِهِ، وَلِأَئِمَّةِ المُسْلِمِينَ وَعَامَّتِهِمْ» [رواه مسلم]." }
+            { t: "حديث 2: الدين النصيحة", c: "عَنْ أَبِي رُقَيَّةَ تَمِيمِ بْنِ أَوْسٍ الدَّارِيِّ رَضِيَ اللهُ عَنْهُ أَنَّ النَّبِيَّ ﷺ قَالَ: «الدِّينُ النَّصِيحَةُ» قُلْنَا: لِمَنْ؟ قَالَ: «للَّهِ، وَلِكِتَابِهِ، وَلِرَسُولِهِ، وَلِأَئِمَّةِ المُسْلِمِينَ وَعَامَّتِهِمْ» [رواه مسلم]." }
         ];
 
         const quranDict = { 
@@ -530,7 +539,7 @@
         }
 
         function getLivePrayerTimes() {
-            let lat = 31.4175; let lng = 31.8144; // إحداثيات دمياط الافتراضية بمصر
+            let lat = 31.4175; let lng = 31.8144; // إحداثيات افتراضية لدمياط، مصر
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(pos => {
                     lat = pos.coords.latitude; lng = pos.coords.longitude; 
