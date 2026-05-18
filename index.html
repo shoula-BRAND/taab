@@ -159,8 +159,8 @@
         </div>
 
         <div class="input-area">
-            <input type="text" id="userInput" placeholder="اكتب سؤالك الفقهي هنا..." onkeypress="handleKeyPress(event)">
-            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            <input type="text" id="userInput" placeholder="اكتب سؤالك الفقهي هنا..." onkeypress="window.handleKeyPress(event)">
+            <button onclick="window.sendMessage()"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
@@ -175,26 +175,22 @@
     <script type="module">
         import { GoogleGenerativeAI } from "@google/generative-ai";
 
-        // ⚠️ ضع مفتاح الـ API الجديد والسري الخاص بك هنا بين علامتي التنصيص
-        const API_KEY = "AIzaSyBl6KShsb4HPY7ababzxUDdVCNe_pomO5s"; 
+        // ⚠️ ضَع مِفتاح الـ API الخَاص بك بداخل علامات التنصيص بالأسفل!
+        const API_KEY = "ضع_المفتاح_هنا"; 
 
-        const genAI = new GoogleGenerativeAI(AIzaSyBl6KShsb4HPY7ababzxUDdVCNe_pomO5s);
+        const genAI = new GoogleGenerativeAI(API_KEY);
         
-        // التعديل السحري: إجبار المكتبة على توجيه طلباتها لإصدار السيرفر المستقر v1 لحل مشكلة الـ 404
+        // إجبار المكتبة على توجيه طلباتها لإصدار السيرفر v1 لحل مشكلة الـ 404
         const model = genAI.getGenerativeModel({ 
             model: "gemini-1.5-flash"
         }, { apiVersion: 'v1' }); 
 
-        // بدء جلسة حوار ذكية مع إرفاق تعليمات النظام بداخل التهيئة الأساسية للمحادثة
         const chat = model.startChat({
             history: [],
-            generationConfig: { 
-                maxOutputTokens: 1000
-            }
+            generationConfig: { maxOutputTokens: 1000 }
         });
 
-        // تم صياغة الـ System Instruction هنا داخل الـ Prompt مباشرة لضمان أعلى توافق مع إصدار v1 في المتصفحات
-        const systemInstruction = "أنت عالم فقه ومستشار ديني وواعظ بليغ. تجيب على الأسئلة بناءً على الأدلة الشرعية والفقهية المعتبرة بأسلوب وعظي هادئ، رصين، ومبسط يناسب العصر، مع ذكر الأدلة من القرآن والسنة بوضوح وتجنب التشدد.\n\nسؤال المستخدم: ";
+        const systemInstruction = "أنت عالم فقه ومستشار ديني وواعظ بليغ. تجيب على الأسئلة بناءً على الأدلة الشرعية والفقهية بأسلوب وعظي هادئ ورصين ومبسط يناسب العصر، مع ذكر الأدلة من القرآن والسنة بوضوح وتجنب التشدد.\n\nسؤال المستخدم: ";
 
         window.sendMessage = async function() {
             const inputField = document.getElementById("userInput");
@@ -203,11 +199,9 @@
 
             if (!text) return;
 
-            // 1. عرض رسالة المستخدم في واجهة الشات
             appendMessage(text, 'user');
             inputField.value = "";
 
-            // 2. إظهار رسالة الانتظار والتحميل للمخدم
             const loadingDiv = document.createElement("div");
             loadingDiv.className = "status-message";
             loadingDiv.id = "loadingStatus";
@@ -216,33 +210,28 @@
             chatBox.scrollTop = chatBox.scrollHeight;
 
             try {
-                // دمج التوجيه الفقهي مع سؤال المستخدم لتفادي قيود الـ API العادي
                 const finalPrompt = systemInstruction + text;
-
-                // 3. تمرير السؤال للنموذج عبر الـ SDK الرسمي واستقبل النص
                 const result = await chat.sendMessage(finalPrompt);
                 const responseText = await result.response.text();
                 
-                // إزالة شارة التحميل فور الاستجابة
                 if (document.getElementById("loadingStatus")) {
                     document.getElementById("loadingStatus").remove();
                 }
 
-                // 4. طباعة رد المستشار الذكي في واجهة الحوار
                 appendMessage(responseText, 'ai');
 
             } catch (error) {
-                console.error("SDK Execution Error:", error);
+                console.error("SDK Error:", error);
                 if (document.getElementById("loadingStatus")) {
                     document.getElementById("loadingStatus").remove();
                 }
-                appendMessage("عذرًا أخي، حدث عائق أثناء جلب الفتوى من الخادم الشرعي. تأكد من إدخال الـ API Key الجديد والنشط الخاص بك بشكل صحيح داخل ملف الكود.", 'ai');
+                appendMessage("عذرًا، حدث خطأ في الاتصال بالخادم الشرعي. تأكد من تفعيل مفتاح الـ API الخاص بك بشكل صحيح وصلاحيته.", 'ai');
             }
         };
 
         window.handleKeyPress = function(event) {
             if (event.key === 'Enter') {
-                sendMessage();
+                window.sendMessage();
             }
         };
 
