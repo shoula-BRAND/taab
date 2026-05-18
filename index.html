@@ -180,7 +180,7 @@
 
         const genAI = new GoogleGenerativeAI(AIzaSyBl6KShsb4HPY7ababzxUDdVCNe_pomO5s);
         
-        // تعديل جوهري: إجبار المكتبة على توجيه طلباتها لإصدار السيرفر المستقر v1 لحل مشكلة الـ 404
+        // التعديل السحري: إجبار المكتبة على توجيه طلباتها لإصدار السيرفر المستقر v1 لحل مشكلة الـ 404
         const model = genAI.getGenerativeModel({ 
             model: "gemini-1.5-flash"
         }, { apiVersion: 'v1' }); 
@@ -189,10 +189,12 @@
         const chat = model.startChat({
             history: [],
             generationConfig: { 
-                maxOutputTokens: 1000,
-                systemInstruction: "أنت عالم فقه ومستشار ديني وواعظ بليغ. تجيب على الأسئلة بناءً على الأدلة الشرعية والفقهية المعتبرة بأسلوب وعظي هادئ، رصين، ومبسط يناسب العصر، مع ذكر الأدلة من القرآن والسنة بوضوح وتجنب التشدد."
+                maxOutputTokens: 1000
             }
         });
+
+        // تم صياغة الـ System Instruction هنا داخل الـ Prompt مباشرة لضمان أعلى توافق مع إصدار v1 في المتصفحات
+        const systemInstruction = "أنت عالم فقه ومستشار ديني وواعظ بليغ. تجيب على الأسئلة بناءً على الأدلة الشرعية والفقهية المعتبرة بأسلوب وعظي هادئ، رصين، ومبسط يناسب العصر، مع ذكر الأدلة من القرآن والسنة بوضوح وتجنب التشدد.\n\nسؤال المستخدم: ";
 
         window.sendMessage = async function() {
             const inputField = document.getElementById("userInput");
@@ -205,7 +207,7 @@
             appendMessage(text, 'user');
             inputField.value = "";
 
-            // 2. إظهار رسالة الانتظار والتحميل للمستخدم
+            // 2. إظهار رسالة الانتظار والتحميل للمخدم
             const loadingDiv = document.createElement("div");
             loadingDiv.className = "status-message";
             loadingDiv.id = "loadingStatus";
@@ -214,8 +216,11 @@
             chatBox.scrollTop = chatBox.scrollHeight;
 
             try {
-                // 3. تمرير السؤال للنموذج عبر الـ SDK الرسمي واستقبال النص
-                const result = await chat.sendMessage(text);
+                // دمج التوجيه الفقهي مع سؤال المستخدم لتفادي قيود الـ API العادي
+                const finalPrompt = systemInstruction + text;
+
+                // 3. تمرير السؤال للنموذج عبر الـ SDK الرسمي واستقبل النص
+                const result = await chat.sendMessage(finalPrompt);
                 const responseText = await result.response.text();
                 
                 // إزالة شارة التحميل فور الاستجابة
