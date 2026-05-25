@@ -3,592 +3,484 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة نور الإيمان - ذكاء اصطناعي كامل</title>
-    
-    <!-- خط Cairo الاحترافي -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=300;400;700&display=swap" rel="stylesheet">
+    <title>She Beauty | عالم الأناقة والجمال</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* الأساسيات وتحسين الألوان */
         :root {
-            --bg-color: #f4f7f5;
-            --container-bg: #ffffff;
-            --text-color: #333333;
-            --primary-color: #1b4332;
-            --secondary-color: #2d6a4f;
-            --accent-color: #52b788;
-            --badge-bg: #e2e8f0;
-            --badge-text: #1a202c;
-            --card-border: #e2e8f0;
-            --text-muted: #475569;
+            --primary-color: #ff85a2;
+            --primary-hover: #f16b8d;
+            --secondary-color: #fef1f3;
+            --dark-color: #2b2d42;
+            --gray-color: #6c757d;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(255, 133, 162, 0.15);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        [data-theme="dark"] {
-            --bg-color: #121212;
-            --container-bg: #1e1e1e;
-            --text-color: #e0e0e0;
-            --primary-color: #0f261d;
-            --secondary-color: #1b4332;
-            --accent-color: #40916c;
-            --badge-bg: #2d3748;
-            --badge-text: #edf2f7;
-            --card-border: #333333;
-            --text-muted: #94a3b8;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; transition: background 0.3s, color 0.3s; }
-        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; padding-bottom: 60px; }
-        
-        header { background-color: var(--primary-color); color: #fff; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .nav-container { width: 90%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .logo h1 { font-size: 24px; color: #d8f3dc; }
-        
-        nav ul { display: flex; list-style: none; align-items: center; flex-wrap: wrap; gap: 8px; }
-        
-        /* نظام البادج (Badge Style) */
-        .badge { display: inline-block; padding: 4px 12px; background-color: var(--badge-bg); color: var(--badge-text); font-size: 13px; font-weight: bold; border-radius: 20px; text-decoration: none; border: none; }
-        .badge-primary { background-color: var(--secondary-color); color: white; }
-        .badge-accent { background-color: var(--accent-color); color: white; }
-        .badge-outline { background: none; border: 1px solid var(--accent-color); color: var(--text-color); }
-        .badge-clickable { cursor: pointer; }
-        .badge-clickable:hover { opacity: 0.9; transform: translateY(-1px); }
+        body {
+            background-color: #fffafb;
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
 
-        nav ul li a.badge { color: white; background-color: transparent; border: 1px solid rgba(255,255,255,0.2); }
-        nav ul li a.badge:hover, nav ul li a.badge.active { background-color: var(--accent-color); color: white; border-color: var(--accent-color); }
-        
-        .theme-toggle { background: var(--secondary-color); border: 1px solid var(--accent-color); color: white; padding: 5px 12px; border-radius: 20px; cursor: pointer; }
-        
-        .hero { background: linear-gradient(rgba(27, 67, 50, 0.85), rgba(45, 106, 79, 0.85)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1000') no-repeat center center/cover; height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; text-align: center; padding: 20px; }
-        
-        .daily-verse-banner { width: 90%; max-width: 1200px; margin: 15px auto 0 auto; background: rgba(82, 183, 136, 0.15); border-right: 5px solid var(--accent-color); padding: 15px; border-radius: 8px; font-weight: bold; text-align: center; }
+        /* أنيميشن الدخول */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-        .page-section { display: none; }
-        .page-section.active-page { display: block; }
-        .container { width: 90%; max-width: 1200px; margin: 25px auto; background: var(--container-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--secondary-color); }
-        .section-title { color: var(--accent-color); margin-bottom: 20px; border-bottom: 2px solid var(--card-border); padding-bottom: 10px; font-size: 22px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        
-        .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 15px; flex-wrap: wrap; }
-        .search-input { padding: 10px 15px; border: 1px solid var(--card-border); border-radius: 6px; width: 100%; max-width: 300px; background: var(--container-bg); color: var(--text-color); outline: none; }
-        
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center; }
-        
-        .prayer-card { background: var(--bg-color); padding: 15px; border-radius: 8px; border: 1px solid var(--card-border); position: relative; overflow: hidden; }
-        .prayer-card.next-prayer-highlight { border: 2px solid var(--accent-color); background: rgba(82, 183, 136, 0.1); }
-        .countdown-banner { background: var(--secondary-color); color: white; text-align: center; padding: 10px; border-radius: 8px; margin-top: 15px; font-weight: bold; }
-        
-        .tasbih-box { text-align: center; padding: 25px; background: var(--bg-color); border-radius: 8px; max-width: 400px; margin: 0 auto; border: 2px dashed var(--accent-color); }
-        .counter-btn { background-color: var(--secondary-color); color: white; border: none; padding: 10px 35px; font-size: 20px; border-radius: 50px; cursor: pointer; margin-top: 15px; }
-        .counter-btn:active { transform: scale(0.95); }
-        
-        .azkar-tabs { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
-        .azkar-item { background: var(--bg-color); padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 15px; border-right: 4px solid var(--secondary-color); }
-        .azkar-item.done { border-right-color: #52b788; opacity: 0.6; background: rgba(82, 183, 136, 0.05); }
-        
-        .names-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
-        
-        .dua-category { background-color: var(--bg-color); border: 1px solid var(--card-border); border-radius: 8px; margin-bottom: 15px; overflow: hidden; }
-        .dua-header { background-color: var(--secondary-color); color: white; padding: 12px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .dua-content { padding: 15px; display: none; background-color: var(--container-bg); max-height: 400px; overflow-y: auto; }
-        .dua-item { padding: 12px; border-bottom: 1px dashed var(--card-border); display: flex; justify-content: space-between; align-items: center; gap: 10px; line-height: 1.7; }
-        
-        .ayah-block { background-color: var(--bg-color); padding: 15px; border-radius: 8px; margin-bottom: 12px; border-right: 5px solid var(--accent-color); }
-        .arabic-text { color: var(--accent-color); font-weight: bold; font-size: 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .translation-text { font-size: 15px; color: var(--text-muted); margin-top: 5px; text-align: left; direction: ltr; }
-        
-        .qibla-compass { width: 150px; height: 150px; border: 4px solid var(--primary-color); border-radius: 50%; margin: 20px auto; position: relative; transition: transform 0.2s ease-out; }
-        .qibla-pointer { width: 6px; height: 70px; background: red; position: absolute; top: 10px; left: 72px; transform-origin: bottom center; }
-        
-        /* تصميم نظام الشات المفتوح للـ AI الحقيقي */
-        .ai-chat-box { background: var(--bg-color); border-radius: 10px; border: 1px solid var(--card-border); padding: 15px; max-width: 100%; margin: 15px 0; }
-        .ai-messages { height: 350px; overflow-y: auto; border: 1px solid var(--card-border); background: var(--container-bg); padding: 12px; border-radius: 8px; margin-bottom: 10px; font-size: 15px; }
-        .msg { margin-bottom: 12px; padding: 10px 14px; border-radius: 8px; max-width: 85%; width: fit-content; line-height: 1.7; }
-        .msg.user { background: var(--secondary-color); color: white; margin-right: auto; text-align: right; }
-        .msg.bot { background: rgba(82, 183, 136, 0.12); color: var(--text-color); margin-left: auto; border-right: 4px solid var(--accent-color); white-space: pre-line; }
-        .ai-input-area { display: flex; gap: 8px; }
-        .ai-input { flex: 1; padding: 12px; border: 1px solid var(--card-border); border-radius: 6px; background: var(--container-bg); color: var(--text-color); outline: none; }
-        .ai-suggestions { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+        /* الهيدر (Header) */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
 
-        footer { background-color: var(--primary-color); color: #d8f3dc; text-align: center; padding: 15px 0; margin-top: 40px; font-size: 14px; }
-        @media (max-width: 768px) { nav ul { justify-content: center; } .nav-container { flex-direction: column; gap: 10px; } .container { width: 95%; padding: 15px; } }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--dark-color);
+        }
+
+        /* السكشن الرئيسي (Hero Section) */
+        .hero {
+            margin-top: 80px;
+            padding: 100px 5% 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #fff5f7 0%, #fef1f3 100%);
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--gray-color);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* الحاوية الرئيسية (Main Container) */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* جعل الفورم عبارة عن شبكة تجمع الكارت والتشيك أوت */
+        .main-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .main-form {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 32px; }
+        }
+
+        /* كروت الأقسام (Cards) */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 133, 162, 0.1);
+            transition: var(--transition);
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.25);
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            color: var(--primary-color);
+        }
+
+        /* عناصر الفورم (Form Elements) */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: var(--transition);
+            outline: none;
+            background-color: var(--light-gray);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            background-color: var(--white);
+            box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.1);
+        }
+
+        /* مخصص لرفع الملفات */
+        .file-upload {
+            position: relative;
+            display: block;
+            border: 2px dashed var(--primary-color);
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 12px;
+            cursor: pointer;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .file-upload:hover {
+            background-color: #fde2e7;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload i {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* معاينة الصورة */
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-top: 15px;
+            display: none;
+            border: 2px solid var(--primary-color);
+            animation: pulse 2s infinite;
+        }
+
+        /* خيارات الدفع (Radio Buttons) */
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .payment-option {
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .payment-option input {
+            accent-color: var(--primary-color);
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary-color);
+        }
+
+        /* الأزرار (Buttons) */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #f16b8d 100%);
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(255, 133, 162, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 133, 162, 0.5);
+        }
+
+        /* رسالة نجاح مخصصة */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .success-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .success-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transform: scale(0.7);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .success-overlay.active .success-card {
+            transform: scale(1);
+        }
+
+        .success-card i {
+            font-size: 60px;
+            color: #2ec4b6;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="nav-container">
-            <div class="logo"><h1>🕌 نور الإيمان</h1></div>
-            <nav>
-                <ul>
-                    <li><a onclick="switchPage('home')" id="nav-home" class="badge active badge-clickable">الرئيسية</a></li>
-                    <li><a onclick="switchPage('ai')" id="nav-ai" class="badge badge-clickable">المستشار الفقهي AI</a></li>
-                    <li><a onclick="switchPage('quran')" id="nav-quran" class="badge badge-clickable">القرآن المترجم</a></li>
-                    <li><a onclick="switchPage('azkar')" id="nav-azkar" class="badge badge-clickable">الأذكار والحصن</a></li>
-                    <li><a onclick="switchPage('dua')" id="nav-dua" class="badge badge-clickable">الأدعية والأحاديث</a></li>
-                    <li><a onclick="switchPage('tools')" id="nav-tools" class="badge badge-clickable">أدوات إسلامية</a></li>
-                    <li><button class="theme-toggle" onclick="toggleTheme()">🌙</button></li>
-                </ul>
-            </nav>
-        </div>
+        <div class="logo">She <span>Beauty</span></div>
+        <div style="font-size: 18px; color: var(--primary-color);"><i class="fa-solid fa-bag-shopping"></i></div>
     </header>
 
     <section class="hero">
-        <h2>موسوعة نور الإيمان الشاملة بنظام الشارات</h2>
-        <p>القرآن الكريم، الأذكار التفاعلية، متصل حياً بذكاء Google Gemini الحقيقي</p>
+        <h1>صممي تجربة تسوقك مع <span>She Beauty</span></h1>
+        <p>ارفعي صورة المنتج المفضل لديكِ وضعي الرابط الخاص به، وسنتولى نحن بقية التفاصيل لتصلكِ حتى باب المنزل.</p>
     </section>
 
-    <div class="daily-verse-banner" id="dailyVerse">جاري جلب نفحة إيمانية اليوم...</div>
-
-    <!-- [ صفحة المستشار الفقهي: الذكاء الاصطناعي الكامل ] -->
-    <div id="page-ai" class="page-section">
-        <div class="container">
-            <h3 class="section-title">🤖 مستشارك الفقهي والشرعي والوعظي <span class="badge badge-accent">Gemini 1.5 Flash حيّ</span></h3>
-            <p style="margin-bottom:15px; font-size:14px; color:var(--text-muted)">تناقش مع الذكاء الاصطناعي الحي، اسأله عن تفسير الآيات، فضل السور، أو الفتاوى اليومية المبسطة بوعي فقهي كامل:</p>
+    <main class="container">
+        <form id="order-form" action="https://formspree.io/f/mqejdpkp" method="POST" class="main-form">
             
-            <div class="ai-chat-box">
-                <div class="ai-suggestions">
-                    <button class="badge badge-outline badge-clickable" onclick="askQuickAi('ما هي شروط قبول العمل الصالح في الإسلام؟')">شروط قبول العمل؟</button>
-                    <button class="badge badge-outline badge-clickable" onclick="askQuickAi('كيف أحقق الخشوع التام والطمأنينة في صلاتي؟')">كيف أخشع بالصلاة؟</button>
-                    <button class="badge badge-outline badge-clickable" onclick="askQuickAi('اشرح لي باختصار فضل قراءة سورة الكهف يوم الجمعة')">فضل سورة الكهف?</button>
-                    <button class="badge badge-outline badge-clickable" onclick="askQuickAi('أريد نصيحة بليغة وقصيرة تشجعني على حفظ القرآن الكريم')">نصيحة لحفظ القرآن</button>
+            <section class="card">
+                <div class="card-title">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <h2>كارت المنتج الخاص بكِ</h2>
                 </div>
-                <div class="ai-messages" id="aiMessages">
-                    <div class="msg bot">مرحباً بك يا أخي في الله، أنا المستشار الرقمي "نور الهدى AI". أنا متصل الآن حياً بخوادم الذكاء الاصطناعي الشاملة لأجيبك بالدليل والبرهان من الكتاب والسنة. كيف يمكنني إعانتك اليوم؟</div>
+                
+                <div class="form-group">
+                    <label>صورة المنتج</label>
+                    <label class="file-upload">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p id="upload-text">اضغطي هنا لرفع صورة المنتج</p>
+                        <input type="file" name="صورة المنتج" id="product-image" accept="image/*" required>
+                    </label>
+                    <img id="preview" class="image-preview" alt="معاينة المنتج">
                 </div>
-                <div class="ai-input-area">
-                    <input type="text" id="aiInput" class="ai-input" placeholder="اكتب سؤالك الفقهي أو استشارتك الدينية هنا..." onkeypress="if(event.key === 'Enter') sendToAi()">
-                    <button class="badge badge-primary badge-clickable" style="padding:0 20px;" onclick="sendToAi()">اسأل الآن</button>
+
+                <div class="form-group">
+                    <label for="product-link">رابط (لينك) المنتج</label>
+                    <input type="url" name="رابط المنتج" id="product-link" class="form-control" placeholder="https://example.com/product" required>
                 </div>
-            </div>
-        </div>
-    </div>
+            </section>
 
-    <!-- [1. الصفحة الرئيسية: المواقيت والمسبحة والراديو] -->
-    <div id="page-home" class="page-section active-page">
-        <div class="container">
-            <h3 class="section-title">⏰ مواقيت الصلاة الحية <span class="badge badge-primary" id="liveLocationBadge">تحديث حي تلقائي</span></h3>
-            <div class="grid-5">
-                <div class="prayer-card" id="p-Fajr"><h4>الفجر</h4><p id="time-Fajr">--:--</p></div>
-                <div class="prayer-card" id="p-Dhuhr"><h4>الظهر</h4><p id="time-Dhuhr">--:--</p></div>
-                <div class="prayer-card" id="p-Asr"><h4>العصر</h4><p id="time-Asr">--:--</p></div>
-                <div class="prayer-card" id="p-Maghrib"><h4>المغرب</h4><p id="time-Maghrib">--:--</p></div>
-                <div class="prayer-card" id="p-Isha"><h4>العشاء</h4><p id="time-Isha">--:--</p></div>
-            </div>
-            <div class="countdown-banner" id="countdown-text">جاري احتساب الوقت المتبقي...</div>
-        </div>
-
-        <div class="grid-3" style="width:90%; max-width:1200px; margin:0 auto;">
-            <div class="container" style="width:100%; margin:0;">
-                <h3 class="section-title">📿 المسبحة الإلكترونية <span class="badge badge-accent" id="tasbihCycleBadge">دورة 33</span></h3>
-                <div class="tasbih-box">
-                    <p id="tasbih-text" style="font-size:18px; font-weight:bold;">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</p>
-                    <h1 id="counter" style="font-size:48px; color:var(--accent-color); margin:5px 0;">0</h1>
-                    <button class="counter-btn" onclick="incrementTasbih()">اضغط للتسبيح</button><br>
-                    <button style="background:none; border:none; color:red; cursor:pointer; margin-top:10px; font-weight:bold;" onclick="resetTasbih()">تصفير العداد</button>
+            <section class="card">
+                <div class="card-title">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <h2>تفاصيل الشحن والدفع (Checkout)</h2>
                 </div>
-            </div>
-            <div class="container" style="width:100%; margin:0;">
-                <h3 class="section-title">📻 الإذاعة والراديو المباشر <span class="badge badge-accent">بث مستقر</span></h3>
-                <p style="margin-bottom:15px; font-size:14px; color:var(--text-muted)">استمع للبث المباشر الموثوق عالي السرعة:</p>
-                <select id="radioSelect" onchange="changeRadioChannel()" style="width:100%; padding:10px; border-radius:6px; background:var(--bg-color); color:var(--text-color); margin-bottom:15px; border:1px solid var(--card-border);">
-                    <option value="https://backup.qurango.net/radio/cairo">إذاعة القرآن الكريم من القاهرة</option>
-                    <option value="https://backup.qurango.net/radio/tarteel">قناة ترتيل القرآن الكريم المرتل</option>
-                    <option value="https://backup.qurango.net/radio/mix">قناة التلاوات الخاشعة المتنوعة</option>
-                </select>
-                <audio id="islamicRadio" controls style="width:100%;" src="https://backup.qurango.net/radio/cairo"></audio>
-            </div>
-        </div>
-    </div>
 
-    <!-- [2. الصفحة الثانية: القرآن الكريم المترجم] -->
-    <div id="page-quran" class="page-section">
-        <div class="container">
-            <h3 class="section-title">📖 تصفح المصحف الشريف <span class="badge badge-primary">API معتمد</span></h3>
-            <div class="toolbar">
-                <div style="display:flex; gap:5px;">
-                    <button class="badge badge-primary badge-clickable" onclick="changeFontSize('quranBody', 2)">A+</button>
-                    <button class="badge badge-primary badge-clickable" onclick="changeFontSize('quranBody', -2)">A-</button>
+                <div class="form-group">
+                    <label for="full-name">الاسم بالكامل</label>
+                    <input type="text" name="الاسم" id="full-name" class="form-control" placeholder="الاسم ثلاثي" required>
                 </div>
-                <select id="langSelect" onchange="loadSurah()" style="padding:5px; border-radius:6px;">
-                    <option value="en.sahih">English (الإنجليزية)</option>
-                    <option value="fr.hamidullah">Français (الفرنسية)</option>
-                </select>
-            </div>
-            <div style="margin-bottom:20px;">
-                <label>اختر السورة: </label>
-                <select id="surahSelect" onchange="loadSurah()" style="padding:10px; width:100%; max-width:300px; border-radius:6px;"></select>
-            </div>
-            <div id="loading" style="text-align:center; display:none; font-weight:bold;">جاري تحميل الآيات...</div>
-            <h2 id="surahName" style="text-align:center; margin-bottom:15px;"></h2>
-            <div id="bismillah" style="text-align:center; font-size:22px; margin-bottom:20px; font-weight:bold;"></div>
-            <div id="quranBody"></div>
-        </div>
-    </div>
 
-    <!-- [3. الصفحة الثالثة: حصن المسلم التفاعلي الكامل] -->
-    <div id="page-azkar" class="page-section">
-        <div class="container">
-            <h3 class="section-title">🌅 بوابة حصن المسلم التفاعلية <span class="badge badge-accent">التكرار الذكي</span></h3>
-            <div class="azkar-tabs">
-                <button class="badge badge-outline badge-clickable" id="tab-sabah" onclick="switchAzkarTab('sabah', this)">أذكار الصباح</button>
-                <button class="badge badge-outline badge-clickable" id="tab-massa" onclick="switchAzkarTab('massa', this)">أذكار المساء</button>
-                <button class="badge badge-outline badge-clickable" id="tab-sleep" onclick="switchAzkarTab('sleep', this)">أذكار النوم</button>
-                <button class="badge badge-outline badge-clickable" id="tab-travel" onclick="switchAzkarTab('travel', this)">أذكار السفر</button>
-            </div>
-            <div id="azkarList"></div>
-            <button class="badge badge-primary badge-clickable" onclick="resetAzkar()" style="margin-top:20px; padding:8px 16px;">إعادة تعيين الأذكار</button>
-        </div>
+                <div class="form-group">
+                    <label for="phone-number">رقم الهاتف</label>
+                    <input type="tel" name="رقم الهاتف" id="phone-number" class="form-control" placeholder="01xxxxxxxxx" required>
+                </div>
 
-        <div class="container">
-            <h3 class="section-title">✨ أسماء الله الحسنى <span class="badge badge-primary">اضغط لرؤية التفسير</span></h3>
-            <div class="names-grid" id="namesGrid"></div>
-        </div>
-    </div>
+                <div class="form-group">
+                    <label for="address">العنوان بالتفصيل</label>
+                    <textarea name="العنوان" id="address" class="form-control" rows="3" placeholder="المحافظة، المدينة، اسم الشارع، رقم العقار" required></textarea>
+                </div>
 
-    <!-- [4. الصفحة الرابعة: الأدعية والأحاديث النبوية] -->
-    <div id="page-dua" class="page-section">
-        <div class="container">
-            <h3 class="section-title">🤲 موسوعة الأدعية والبحث الذكي</h3>
-            <div class="toolbar">
-                <input type="text" id="duaSearch" class="search-input" onkeyup="searchDuas()" placeholder="ابحث عن دعاء...">
-            </div>
+                <div class="form-group">
+                    <label>طريقة الدفع المفضلة</label>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="طريقة الدفع" value="الدفع عند الاستلام" checked>
+                            <span>الدفع عند الاستلام</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="طريقة الدفع" value="محفظة إلكترونية">
+                            <span>محفظة إلكترونية</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">ملاحظات إضافية (اختياري)</label>
+                    <textarea name="ملاحظات" id="notes" class="form-control" rows="2" placeholder="أي تفاصيل أخرى تريدين إخبارنا بها..."></textarea>
+                </div>
+
+                <button type="submit" class="btn" id="submit-btn">تأكيد الطلب الآن</button>
+            </section>
             
-            <div class="dua-category">
-                <div class="dua-header" onclick="toggleDua('rezk')">أدعية جلب الرزق والتيسير <span class="badge badge-accent">قائمة</span></div>
-                <div class="dua-content" id="rezk" style="display:block;">
-                    <div class="dua-item"><span>اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ، وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ.</span><button class="badge badge-primary badge-clickable" onclick="copyText(this)">نسخ</button></div>
-                    <div class="dua-item"><span>اللّهم إن كان رزقي في السماء فأنزله، وإن كان في الأرض فأخرجه.</span><button class="badge badge-primary badge-clickable" onclick="copyText(this)">نسخ</button></div>
-                </div>
-            </div>
-        </div>
+        </form>
+    </main>
 
-        <div class="container">
-            <h3 class="section-title">📜 الأحاديث النبوية الشريفة <span class="badge badge-primary">المكتبة المعتمدة</span></h3>
-            <div style="margin-bottom:15px;">
-                <select id="hadithSelect" onchange="loadHadith()" style="padding:10px; width:100%; max-width:400px; border-radius:6px; background:var(--container-bg); color:var(--text-color); border:1px solid var(--card-border);"></select>
-            </div>
-            <div id="hadithBody" style="background:var(--bg-color); padding:20px; border-radius:8px; font-size:18px; font-weight:500; line-height:1.9; white-space: pre-line;"></div>
+    <div class="success-overlay" id="successModal">
+        <div class="success-card">
+            <i class="fa-solid fa-circle-check"></i>
+            <h2>شكراً لطلبكِ</h2>
+            <p style="color: var(--gray-color); margin-top: 10px; font-size: 16px; font-weight: 600;">سيتم تواصل معكِ من فريق العمل بأسرع وقت.</p>
+            <button class="btn" style="margin-top: 20px; background: var(--dark-color);" onclick="closeModal()">إغلاق</button>
         </div>
     </div>
-
-    <!-- [5. الصفحة الخامسة: أدوات إسلامية متقدمة] -->
-    <div id="page-tools" class="page-section">
-        <div class="grid-3" style="width:90%; max-width:1200px; margin:0 auto;">
-            <div class="container" style="width:100%; margin:0;">
-                <h3 class="section-title">🧭 اتجاه القبلة <span class="badge badge-accent">بوصلة رقمية</span></h3>
-                <div class="qibla-compass" id="compass"><div class="qibla-pointer"></div></div>
-                <p id="qiblaAngle" style="text-align:center; font-weight:bold; margin-top:10px;">زاوية القبلة: جاري الحساب...</p>
-            </div>
-
-            <div class="container" style="width:100%; margin:0;">
-                <h3 class="section-title">🪙 حاسبة الزكاة <span class="badge badge-primary">نسبة 2.5%</span></h3>
-                <input type="number" id="zakatInput" oninput="calculateZakat()" placeholder="أدخل إجمالي المبلغ..." style="width:100%; padding:10px; border-radius:6px; border:1px solid var(--card-border); background:var(--container-bg); color:var(--text-color);">
-                <p id="zakatResult" style="font-weight:bold; color:var(--accent-color); font-size:18px; margin-top:10px;">الزكاة الواجبة: 0.00</p>
-            </div>
-        </div>
-
-        <div class="container">
-            <h3 class="section-title">🔍 قاموس غريب كلمات القرآن <span class="badge badge-outline">تفسير فوري</span></h3>
-            <input type="text" id="dictSearch" onkeyup="searchDict()" class="search-input" placeholder="اكتب الكلمة القرآنية (مثال: الصمد، الوتين)..." style="max-width:100%; margin-bottom:15px;">
-            <div id="dictResult" style="padding:15px; background:var(--bg-color); border-radius:8px; font-weight:bold; min-height:50px;">اكتب أي كلمة قرآنية غامضة لترى التفسير...</div>
-        </div>
-    </div>
-
-    <footer>
-        <p>جميع الحقوق محفوظة © 2026 | بوابة نور الإيمان بنظام الذكاء الاصطناعي الكامل</p>
-    </footer>
 
     <script>
-        // ==========================================
-        // 🤖 ربط نظام شات الـ AI الكامل المتوافق مع المتصفحات
-        // ==========================================
-        
-        // ضع الـ API Key الجديد السري والنشط الخاص بك هنا
-        const GEMINI_API_KEY = "ضع_مفتاحك_الجديد_والسري_هنا"; 
+        // ميكانيكية رفع صورة المنتج ومعاينتها فورياً
+        const imageInput = document.getElementById('product-image');
+        const previewImage = document.getElementById('preview');
+        const uploadText = document.getElementById('upload-text');
 
-        const SYSTEM_INSTRUCTION = `أنت مستشار فقهي وعظي إسلامي ذكي واسمك "نور الهدى AI".
-- يجب أن تبني إجاباتك كلياً على نصوص القرآن الكريم، والسنة النبوية الصحيحة.
-- تحدث دوماً باللغة العربية الفصحى، بأسلوب رصين، وقور ومريح للسائل.
-- استخدم التنسيق المنظم (العناوين العريضة باستخدام النجوم والنقاط).
-- إذا سألك المستخدم في مجالات خارج الدين، اعتذر منه بلطف وبيّن أن مجالك هو الإرشاد الفقهي والوعظي والثقافة الإسلامية فحسب.`;
-
-        let chatHistory = [];
-
-        async function sendToAi() {
-            const inputEl = document.getElementById('aiInput');
-            const query = inputEl.value.trim();
-            if (!query) return;
-
-            // إظهار رسالة المستخدم في الواجهة
-            appendMessage(query, 'user');
-            inputEl.value = "";
-
-            // إظهار شارة التفكير والانتظار
-            const messagesContainer = document.getElementById('aiMessages');
-            const thinkingDiv = document.createElement('div');
-            thinkingDiv.className = "msg bot";
-            thinkingDiv.id = "aiThinking";
-            thinkingDiv.innerText = "جاري تصفح الأدلة واستنباط الموعظة... 🧠✨";
-            messagesContainer.appendChild(thinkingDiv);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-            // دمج التوجيهات الفقهية مباشرة في محتوى الطلب لتخطي القيود الأمنية للمتصفح
-            const promptWithInstruction = `${SYSTEM_INSTRUCTION}\n\nسؤال المستخدم الحالي: ${query}`;
-            chatHistory.push({ role: "user", parts: [{ text: promptWithInstruction }] });
-
-            try {
-                // الاتصال المباشر بخوادم جوجل لإنشاء المحتوى
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        contents: chatHistory,
-                        generationConfig: { temperature: 0.3, maxOutputTokens: 800 }
-                    })
-                });
-
-                const data = await response.json();
+        imageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                uploadText.textContent = `تم اختيار: ${file.name}`;
                 
-                // إزالة شارة التفكير
-                if (document.getElementById('aiThinking')) {
-                    document.getElementById('aiThinking').remove();
-                }
+                reader.addEventListener('load', function() {
+                    previewImage.setAttribute('src', this.result);
+                    previewImage.style.display = 'block';
+                });
+                
+                reader.readAsDataURL(file);
+            }
+        });
 
-                if (data.candidates && data.candidates[0].content.parts[0].text) {
-                    let aiReply = data.candidates[0].content.parts[0].text;
-                    appendMessage(aiReply, 'bot');
-                    
-                    // حفظ رد الـ AI في الذاكرة لتتابع السياق
-                    chatHistory.push({ role: "model", parts: [{ text: aiReply }] });
+        // ربط إرسال الفورم بـ Formspree عبر AJAX لمنع الانتقال لصفحة خارجية وإظهار البوب اب الخاص بكِ
+        const form = document.getElementById('order-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const modal = document.getElementById('successModal');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // منع إعادة تحميل الصفحة الافتراضية
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'جاري إرسال طلبكِ...';
+
+            const formData = new FormData(form);
+
+            // إرسال البيانات خلف الكواليس لـ Formspree
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // إظهار نافذة النجاح المخصصة
+                    modal.classList.add('active');
                 } else {
-                    console.error("خطأ استجابة:", data);
-                    appendMessage("تنبيه: يرجى التأكد من استبدال المفتاح القديم بـ API Key جديد تماماً من Google AI Studio لأن القديم تم حظره أمنياً تلقائياً.", 'bot');
+                    alert('عذراً، حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'تأكيد الطلب الآن';
                 }
-            } catch (error) {
-                console.error("Gemini API Error:", error);
-                if (document.getElementById('aiThinking')) {
-                    document.getElementById('aiThinking').remove();
-                }
-                appendMessage("تعذر الاتصال بالخوادم، يرجى التحقق من اتصالك بالإنترنت وصلاحية الـ API Key المستعمل.", 'bot');
-            }
-        }
-
-        function askQuickAi(text) { document.getElementById('aiInput').value = text; sendToAi(); }
-        
-        function appendMessage(text, sender) { 
-            const container = document.getElementById('aiMessages'); 
-            const msg = document.createElement('div'); 
-            msg.className = `msg ${sender}`; 
-            if (sender === 'bot') {
-                msg.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-            } else {
-                msg.innerText = text;
-            }
-            container.appendChild(msg); 
-            container.scrollTop = container.scrollHeight; 
-        }
-
-        // ==========================================
-        // باقي قواعد البيانات والوظائف الأساسية للموقع
-        // ==========================================
-
-        const dailyVerses = [
-            "﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾ [الرعد: 28]",
-            "﴿وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ﴾ [الطلاق: 2-3]",
-            "﴿وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ﴾ [البقرة: 186]"
-        ];
-
-        const azkarDatabase = {
-            sabah: [
-                { t: "آية الكرسي: اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...", c: 1 },
-                { t: "بِاسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ", c: 3 },
-                { t: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ", c: 1 }
-            ],
-            massa: [
-                { t: "آية الكرسي: اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...", c: 1 },
-                { t: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ...", c: 1 },
-                { t: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ", c: 3 }
-            ],
-            sleep: [
-                { t: "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ...", c: 1 },
-                { t: "قراءة سورة الإخلاص والمعوذتين (المسح على الجسد)", c: 3 }
-            ],
-            travel: [
-                { t: "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ", c: 1 }
-            ]
-        };
-
-        const namesData = [
-            {n:"الله", m:"الاسم الأعظم الفريد الجامع لكل صفات الإلهية والربوبية."},
-            {n:"الرَّحْمَنُ", m:"الواسع الرحمة الذي وسعت رحمته كل شيء في الكون وعمّت العباد."},
-            {n:"الرَّحِيمُ", m:"المُنعم برحمته على عباده المؤمنين هداية وتثبيتاً وإكراماً بالأجر."},
-            {n:"المَلِكُ", m:"المتصرف في ملكه والمهيمن التام الذي لا يخرج عن أمره أحد."},
-            {n:"القُدُّوسُ", m:"المنزه والمطهر عن كل عيب ونقص وشبيه المستحق للتقديس والتمجيد."}
-        ];
-
-        const hadithsData = [
-            { t: "حديث 1: إنما الأعمال بالنيات", c: "عَنْ أَمِيرِ المُؤمِنِينَ أَبِي حَفْصٍ عُمَرَ بْنِ الخَطَّابِ رَضِيَ اللهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللهِ ﷺ يَقُولُ: «إنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوْ امْرَأَةٍ يَنْكِحُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ» [رواه البخاري ومسلم]." },
-            { t: "حديث 2: الدين النصيحة", c: "عَنْ أَبِي رُقَيَّةَ تَمِيمِ بْنِ أَوْسٍ الدَّارِيِّ رَضِيَ اللهُ عَنْهُ أَنَّ النَّبِيَّ ﷺ قَالَ: «الدِّينُ النَّصِيحَةُ» قُلْنَا: لِمَنْ؟ قَالَ: «للَّهِ، وَلِكِتَابِهِ، وَلِرَسُولِهِ، وَلِأَئِمَّةِ المُسْلِمِينَ وَعَامَّتِهِمْ» [رواه مسلم]." }
-        ];
-
-        const quranDict = { 
-            "الصمد": "السيد العظيم الإله الصادق الذي تُقصد إليه الخلائق قاطبة لقضاء الحوائج والمسائل.", 
-            "الوتين": "شريان الحياة النياطي الرئيسي في القلب والذي إذا انقطع مات صاحبه فوراً.",
-            "الفلق": "الصبح أو فلق الفجر عند انشقاق النور وانقشاع الظلام.",
-            "غاسق": "الليل إذا أظلم ودخل بظلامه غامراً الأرجاء."
-        };
-
-        let prayerTimes = { "Fajr": "04:30", "Dhuhr": "12:45", "Asr": "16:15", "Maghrib": "18:55", "Isha": "20:25" };
-        let count = parseInt(localStorage.getItem('tasbihCount')) || 0;
-        const phrases = ["سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ", "لَا إِلَهَ إِلَّا اللَّهُ", "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّد"];
-
-        window.onload = function() {
-            document.getElementById('counter').innerText = count;
-            if(localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-            
-            displayDailyVerse(); getLivePrayerTimes(); setInterval(updateCountdown, 1000); initStaticData();
-            switchAzkarTab('sabah', document.getElementById('tab-sabah'));
-
-            fetch('https://api.alquran.cloud/v1/surah')
-            .then(res => res.json()).then(data => {
-                const select = document.getElementById('surahSelect');
-                data.data.forEach(s => {
-                    let opt = document.createElement('option'); opt.value = s.number; opt.text = `${s.number}. ${s.name}`; select.appendChild(opt);
-                });
-                select.value = localStorage.getItem('lastSurah') || 1; loadSurah();
+            }).catch(error => {
+                alert('حدث خطأ في الاتصال بالشبكة. يرجى التحقق من الإنترنت.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'تأكيد الطلب الآن';
             });
-        };
+        });
 
-        function displayDailyVerse() { document.getElementById('dailyVerse').innerText = `💡 تذكير ونفحة اليوم: ${dailyVerses[Math.floor(Math.random() * dailyVerses.length)]}`; }
-
-        function initStaticData() {
-            const grid = document.getElementById('namesGrid'); grid.innerHTML = "";
-            namesData.forEach(item => {
-                let card = document.createElement('div'); card.className = "badge badge-outline badge-clickable"; card.style.padding = "10px"; card.innerText = item.n;
-                card.onclick = () => alert(`【 اسم الله الحسنى: ${item.n} 】\n\nالتفسير والمعنى الفقهي: ${item.m}`); grid.appendChild(card);
-            });
-
-            const hSelect = document.getElementById('hadithSelect'); hSelect.innerHTML = "";
-            hadithsData.forEach((h, idx) => {
-                let opt = document.createElement('option'); opt.value = idx; opt.text = h.t; hSelect.appendChild(opt);
-            });
-            loadHadith();
+        // إغلاق بوب اب النجاح وإعادة تعيين الفورم لطلب جديد
+        function closeModal() {
+            modal.classList.remove('active');
+            form.reset();
+            previewImage.style.display = 'none';
+            uploadText.textContent = "اضغطي هنا لرفع صورة المنتج";
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'تأكيد الطلب الآن';
         }
-
-        function switchAzkarTab(tabKey, btnElement) {
-            document.querySelectorAll('.azkar-tabs .badge').forEach(btn => { btn.classList.remove('badge-primary'); btn.classList.add('badge-outline'); });
-            btnElement.classList.remove('badge-outline'); btnElement.classList.add('badge-primary');
-            const listContainer = document.getElementById('azkarList'); listContainer.innerHTML = "";
-
-            azkarDatabase[tabKey].forEach((az, index) => {
-                let itemID = `azk-${tabKey}-${index}`;
-                listContainer.innerHTML += `<div class="azkar-item" id="${itemID}"><span>${az.t}</span><button class="badge badge-accent badge-clickable" onclick="countAzkar('${itemID}', ${az.c})">المتبقي: ${az.c}</button></div>`;
-            });
-        }
-
-        function countAzkar(id, target) {
-            let btn = document.querySelector(`#${id} .badge`); let current = parseInt(btn.innerText.replace(/[^0-9]/g, ''));
-            if (current > 1) { btn.innerText = `المتبقي: ${current - 1}`; } 
-            else { btn.innerText = "✓ تم حصن المسلم"; btn.style.background = "#52b788"; document.getElementById(id).classList.add('done'); }
-        }
-
-        function resetAzkar() { const activeTab = document.querySelector('.azkar-tabs .badge-primary'); if(activeTab) activeTab.click(); }
-
-        function switchPage(pageId) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-page'));
-            document.querySelectorAll('nav ul li a').forEach(l => l.classList.remove('active'));
-            document.getElementById('page-' + pageId).classList.add('active-page');
-            document.getElementById('nav-' + pageId).classList.add('active'); window.scrollTo(0, 0);
-        }
-
-        function toggleTheme() {
-            if (document.documentElement.getAttribute('data-theme') === 'dark') { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); } 
-            else { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
-        }
-
-        function changeFontSize(id, amount) { const el = document.getElementById(id); let size = parseInt(window.getComputedStyle(el).fontSize); el.style.fontSize = (size + amount) + 'px'; }
-        
-        function incrementTasbih() { 
-            count++; 
-            document.getElementById('counter').innerText = count; 
-            localStorage.setItem('tasbihCount', count); 
-            if (count % 33 === 0) {
-                document.getElementById('tasbih-text').innerText = phrases[Math.floor(count / 33) % phrases.length];
-                document.getElementById('tasbihCycleBadge').innerText = `دورة ${count}`;
-            }
-        }
-        
-        function resetTasbih() { count = 0; document.getElementById('counter').innerText = 0; localStorage.removeItem('tasbihCount'); document.getElementById('tasbih-text').innerText = phrases[0]; document.getElementById('tasbihCycleBadge').innerText = "دورة 33"; }
-        function changeRadioChannel() { const radio = document.getElementById('islamicRadio'); radio.src = document.getElementById('radioSelect').value; radio.load(); radio.play(); }
-
-        function loadSurah() {
-            const num = document.getElementById('surahSelect').value; const ed = document.getElementById('langSelect').value; const body = document.getElementById('quranBody');
-            localStorage.setItem('lastSurah', num); document.getElementById('loading').style.display = 'block'; body.innerHTML = '';
-
-            Promise.all([fetch(`https://api.alquran.cloud/v1/surah/${num}`), fetch(`https://api.alquran.cloud/v1/surah/${num}/${ed}`)])
-            .then(res => Promise.all(res.map(r => r.json()))).then(results => {
-                document.getElementById('loading').style.display = 'none'; document.getElementById('surahName').innerText = `سورة ${results[0].data.name}`;
-                document.getElementById('bismillah').innerText = (num != 1 && num != 9) ? "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" : "";
-                results[0].data.ayahs.forEach((ay, i) => {
-                    let txt = ay.text; if(num != 1 && num != 9 && i === 0) txt = txt.replace("بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "");
-                    body.innerHTML += `<div class="ayah-block"><div class="arabic-text">${txt} <span class="badge badge-primary">${ay.numberInSurah}</span></div><div class="translation-text">${results[1].data.ayahs[i].text}</div></div>`;
-                });
-            });
-        }
-
-        function getLivePrayerTimes() {
-            let lat = 31.4175; let lng = 31.8144; // إحداثيات افتراضية لدمياط، مصر
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(pos => {
-                    lat = pos.coords.latitude; lng = pos.coords.longitude; 
-                    document.getElementById('liveLocationBadge').innerText = "موقعك الفعلي حياً";
-                    calculateQibla(lat, lng); fetchTimes();
-                }, () => { calculateQibla(lat, lng); fetchTimes(); });
-            } else { calculateQibla(lat, lng); fetchTimes(); }
-
-            function fetchTimes() {
-                fetch(`https://api.aladhan.com/v1/timings?latitude=${lat}&longitude=${lng}&method=5`)
-                .then(res => res.json()).then(json => {
-                    const t = json.data.timings;
-                    prayerTimes = { "Fajr": t.Fajr, "Dhuhr": t.Dhuhr, "Asr": t.Asr, "Maghrib": t.Maghrib, "Isha": t.Isha };
-                    for (let key in prayerTimes) document.getElementById(`time-${key}`).innerText = prayerTimes[key];
-                });
-            }
-        }
-
-        function calculateQibla(lat, lng) {
-            let mLat = 21.4225; let mLng = 39.8262; // إحداثيات الكعبة المشرفة بمكة المكرمة
-            let y = Math.sin(Math.PI * (mLng - lng) / 180);
-            let x = Math.cos(Math.PI * lat / 180) * Math.tan(Math.PI * mLat / 180) - Math.sin(Math.PI * lat / 180) * Math.cos(Math.PI * (mLng - lng) / 180);
-            let qibla = Math.atan2(y, x) * 180 / Math.PI; if (qibla < 0) qibla += 360;
-            document.getElementById('qiblaAngle').innerHTML = `زاوية القبلة الكلية: <span class="badge badge-accent">${Math.round(qibla)}° درجة</span> باتجاه مكة`;
-            document.getElementById('compass').style.transform = `rotate(-${Math.round(qibla)}deg)`;
-        }
-
-        function updateCountdown() {
-            let now = new Date(); let nextPrayerName = ""; let nextPrayerTime = ""; let minDiff = Infinity;
-            for (let key in prayerTimes) {
-                let pParts = prayerTimes[key].split(':');
-                let pDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), pParts[0], pParts[1], 0);
-                if (pDate < now) pDate.setDate(pDate.getDate() + 1);
-                let diff = pDate - now; if (diff < minDiff) { minDiff = diff; nextPrayerName = key; nextPrayerTime = prayerTimes[key]; }
-            }
-            const arabicNames = { Fajr: "الفجر", Dhuhr: "الظهر", Asr: "العصر", Maghrib: "المغرب", Isha: "العشاء" };
-            document.querySelectorAll('.prayer-card').forEach(c => c.classList.remove('next-prayer-highlight'));
-            if(document.getElementById(`p-${nextPrayerName}`)) document.getElementById(`p-${nextPrayerName}`).classList.add('next-prayer-highlight');
-            
-            let sec = Math.floor(minDiff / 1000); let h = Math.floor(sec / 3600); let m = Math.floor((sec % 3600) / 60); let s = sec % 60;
-            document.getElementById('countdown-text').innerHTML = `الوقت المتبقي لإقامة صلاة ${arabicNames[nextPrayerName]} [ ${nextPrayerTime} ] هو: <span class="badge badge-accent">${h}س</span> <span class="badge badge-accent">${m}د</span> <span class="badge badge-accent">${s}ث</span>`;
-        }
-
-        function loadHadith() { const idx = document.getElementById('hadithSelect').value; document.getElementById('hadithBody').innerText = hadithsData[idx].c; }
-        function searchDuas() { let input = document.getElementById('duaSearch').value.toLowerCase(); document.querySelectorAll('.dua-item').forEach(item => { item.style.display = item.getElementsByTagName('span')[0].innerText.toLowerCase().includes(input) ? "flex" : "none"; }); }
-        function searchDict() { let val = document.getElementById('dictSearch').value.trim(); document.getElementById('dictResult').innerText = quranDict[val] || "الكلمة القرآنية غير مسجلة حالياً بالقاموس المبسط."; }
-        function calculateZakat() { let total = parseFloat(document.getElementById('zakatInput').value) || 0; document.getElementById('zakatResult').innerHTML = `إجمالي الزكاة الشرعية الواجبة (2.5%): <span class="badge badge-accent">${(total * 0.025).toFixed(2)}</span>`; }
-        function toggleDua(id) { const content = document.getElementById(id); content.style.display = (content.style.display === "block" || content.style.display === "") ? "none" : "block"; }
-        function copyText(btn) { let txt = btn.parentElement.getElementsByTagName('span')[0].innerText; navigator.clipboard.writeText(txt).then(() => { btn.innerText = "تم النَّسخ!"; setTimeout(() => btn.innerText = "نسخ", 1200); }); }
     </script>
 </body>
 </html>
