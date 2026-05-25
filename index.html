@@ -48,7 +48,7 @@
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
             100% { transform: scale(1); }
         }
 
@@ -113,7 +113,7 @@
             padding: 0 20px;
         }
 
-        /* جعل الفورم عبارة عن شبكة تجمع الكارت والتشيك أوت */
+        /* شبكة تجمع الكارت والتشيك أوت جنباً إلى جنب */
         .main-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -220,7 +220,7 @@
             margin-bottom: 10px;
         }
 
-        /* معاينة الصورة */
+        /* معاينة الصورة المرفوعة */
         .image-preview {
             width: 100px;
             height: 100px;
@@ -232,7 +232,7 @@
             animation: pulse 2s infinite;
         }
 
-        /* خيارات الدفع (Radio Buttons) */
+        /* خيارات الدفع */
         .payment-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -259,7 +259,7 @@
             border-color: var(--primary-color);
         }
 
-        /* الأزرار (Buttons) */
+        /* الأزرار */
         .btn {
             width: 100%;
             padding: 14px;
@@ -279,7 +279,13 @@
             box-shadow: 0 8px 20px rgba(255, 133, 162, 0.5);
         }
 
-        /* رسالة نجاح مخصصة */
+        .btn:disabled {
+            background: #cccccc;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        /* بوب اب النجاح المخصص */
         .success-overlay {
             position: fixed;
             top: 0;
@@ -306,10 +312,11 @@
             padding: 40px;
             border-radius: 20px;
             text-align: center;
-            max-width: 400px;
+            max-width: 420px;
             width: 90%;
             transform: scale(0.7);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
         }
 
         .success-overlay.active .success-card {
@@ -349,14 +356,14 @@
                     <label class="file-upload">
                         <i class="fa-solid fa-cloud-arrow-up"></i>
                         <p id="upload-text">اضغطي هنا لرفع صورة المنتج</p>
-                        <input type="file" name="صورة المنتج" id="product-image" accept="image/*" required>
+                        <input type="file" id="product-image" accept="image/*" required>
                     </label>
-                    <img id="preview" class="image-preview" alt="معاينة المنتج">
+                    <center><img id="preview" class="image-preview" alt="معاينة المنتج"></center>
                 </div>
 
                 <div class="form-group">
                     <label for="product-link">رابط (لينك) المنتج</label>
-                    <input type="url" name="رابط المنتج" id="product-link" class="form-control" placeholder="https://example.com/product" required>
+                    <input type="url" id="product-link" class="form-control" placeholder="https://example.com/product" required>
                 </div>
             </section>
 
@@ -368,17 +375,17 @@
 
                 <div class="form-group">
                     <label for="full-name">الاسم بالكامل</label>
-                    <input type="text" name="الاسم" id="full-name" class="form-control" placeholder="الاسم ثلاثي" required>
+                    <input type="text" id="full-name" class="form-control" placeholder="الاسم ثلاثي" required>
                 </div>
 
                 <div class="form-group">
                     <label for="phone-number">رقم الهاتف</label>
-                    <input type="tel" name="رقم الهاتف" id="phone-number" class="form-control" placeholder="01xxxxxxxxx" required>
+                    <input type="tel" id="phone-number" class="form-control" placeholder="01xxxxxxxxx" required>
                 </div>
 
                 <div class="form-group">
                     <label for="address">العنوان بالتفصيل</label>
-                    <textarea name="العنوان" id="address" class="form-control" rows="3" placeholder="المحافظة، المدينة، اسم الشارع، رقم العقار" required></textarea>
+                    <textarea id="address" class="form-control" rows="3" placeholder="المحافظة، المدينة، اسم الشارع، رقم العقار" required></textarea>
                 </div>
 
                 <div class="form-group">
@@ -397,7 +404,7 @@
 
                 <div class="form-group">
                     <label for="notes">ملاحظات إضافية (اختياري)</label>
-                    <textarea name="ملاحظات" id="notes" class="form-control" rows="2" placeholder="أي تفاصيل أخرى تريدين إخبارنا بها..."></textarea>
+                    <textarea id="notes" class="form-control" rows="2" placeholder="أي تفاصيل أخرى تريدين إخبارنا بها..."></textarea>
                 </div>
 
                 <button type="submit" class="btn" id="submit-btn">تأكيد الطلب الآن</button>
@@ -410,46 +417,67 @@
         <div class="success-card">
             <i class="fa-solid fa-circle-check"></i>
             <h2>شكراً لطلبكِ</h2>
-            <p style="color: var(--gray-color); margin-top: 10px; font-size: 16px; font-weight: 600;">سيتم تواصل معكِ من فريق العمل بأسرع وقت.</p>
-            <button class="btn" style="margin-top: 20px; background: var(--dark-color);" onclick="closeModal()">إغلاق</button>
+            <p style="color: var(--gray-color); margin-top: 12px; font-size: 16px; font-weight: 600; line-height: 1.6;">سيتم تواصل معكِ من فريق العمل بأسرع وقت.</p>
+            <button class="btn" style="margin-top: 25px; background: var(--dark-color);" onclick="closeModal()">إغلاق</button>
         </div>
     </div>
 
     <script>
-        // ميكانيكية رفع صورة المنتج ومعاينتها فورياً
         const imageInput = document.getElementById('product-image');
         const previewImage = document.getElementById('preview');
         const uploadText = document.getElementById('upload-text');
+        let base64Image = ""; 
 
+        // معالجة اختيار ومعاينة الصورة وضغطها تلقائياً
         imageInput.addEventListener('change', function() {
             const file = this.files[0];
             if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert("صورة المنتج حجمها كبير، يرجى رفع صورة أصغر أو التقاط لقطة شاشة (Screenshot) خفيفة.");
+                    this.value = '';
+                    return;
+                }
+                
                 const reader = new FileReader();
                 uploadText.textContent = `تم اختيار: ${file.name}`;
                 
                 reader.addEventListener('load', function() {
                     previewImage.setAttribute('src', this.result);
                     previewImage.style.display = 'block';
+                    base64Image = this.result; // حفظ الصورة كنص لـ Formspree
                 });
                 
                 reader.readAsDataURL(file);
             }
         });
 
-        // ربط إرسال الفورم بـ Formspree عبر AJAX لمنع الانتقال لصفحة خارجية وإظهار البوب اب الخاص بكِ
+        // ربط السيرفر والتحكم بالإرسال لمنع الأخطاء
         const form = document.getElementById('order-form');
         const submitBtn = document.getElementById('submit-btn');
         const modal = document.getElementById('successModal');
 
         form.addEventListener('submit', function(event) {
-            event.preventDefault(); // منع إعادة تحميل الصفحة الافتراضية
+            event.preventDefault(); 
             
+            if(!base64Image) {
+                alert('من فضلكِ قومي برفع صورة للمنتج أولاً في الكارت.');
+                return;
+            }
+
             submitBtn.disabled = true;
-            submitBtn.textContent = 'جاري إرسال طلبكِ...';
+            submitBtn.textContent = 'جاري إرسال طلبكِ الفاخر...';
 
-            const formData = new FormData(form);
+            // صياغة البيانات كـ FormData لضمان قراءتها على الخطة المجانية لـ Formspree
+            const formData = new FormData();
+            formData.append("الاسم بالكامل", document.getElementById('full-name').value);
+            formData.append("رقم الهاتف", document.getElementById('phone-number').value);
+            formData.append("رابط المنتج المراد", document.getElementById('product-link').value);
+            formData.append("العنوان بالتفصيل", document.getElementById('address').value);
+            formData.append("طريقة الدفع المختارة", document.querySelector('input[name="طريقة الدفع"]:checked').value);
+            formData.append("ملاحظات العميلة", document.getElementById('notes').value);
+            formData.append("صورة المنتج المرفوعة", base64Image); 
 
-            // إرسال البيانات خلف الكواليس لـ Formspree
+            // الإرسال السري بالخلفية
             fetch(form.action, {
                 method: form.method,
                 body: formData,
@@ -458,26 +486,27 @@
                 }
             }).then(response => {
                 if (response.ok) {
-                    // إظهار نافذة النجاح المخصصة
+                    // تفعيل بوب اب النجاح العربي الفوري
                     modal.classList.add('active');
                 } else {
-                    alert('عذراً، حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.');
+                    alert('حدث خطأ غير متوقع بالسيرفر. يرجى التأكد من ملء الحقول والمحاولة مجدداً.');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'تأكيد الطلب الآن';
                 }
             }).catch(error => {
-                alert('حدث خطأ في الاتصال بالشبكة. يرجى التحقق من الإنترنت.');
+                alert('فشل الاتصال بالشبكة، يرجى التأكد من جودة الإنترنت لديكِ.');
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'تأكيد الطلب الآن';
             });
         });
 
-        // إغلاق بوب اب النجاح وإعادة تعيين الفورم لطلب جديد
+        // تنظيف البيانات لبدء طلب جديد بعد الإغلاق
         function closeModal() {
             modal.classList.remove('active');
             form.reset();
             previewImage.style.display = 'none';
             uploadText.textContent = "اضغطي هنا لرفع صورة المنتج";
+            base64Image = "";
             submitBtn.disabled = false;
             submitBtn.textContent = 'تأكيد الطلب الآن';
         }
