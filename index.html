@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* الأساسيات وتحسين الألوان */
         :root {
             --primary-color: #ff85a2;
             --primary-hover: #f16b8d;
@@ -34,16 +33,9 @@
             overflow-x: hidden;
         }
 
-        /* أنيميشن الدخول */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes pulse {
@@ -52,7 +44,6 @@
             100% { transform: scale(1); }
         }
 
-        /* الهيدر (Header) */
         header {
             background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -74,11 +65,8 @@
             letter-spacing: 1px;
         }
 
-        .logo span {
-            color: var(--dark-color);
-        }
+        .logo span { color: var(--dark-color); }
 
-        /* السكشن الرئيسي (Hero Section) */
         .hero {
             margin-top: 80px;
             padding: 100px 5% 60px;
@@ -94,9 +82,7 @@
             animation: fadeInUp 0.8s ease-out;
         }
 
-        .hero h1 span {
-            color: var(--primary-color);
-        }
+        .hero h1 span { color: var(--primary-color); }
 
         .hero p {
             font-size: 18px;
@@ -106,14 +92,12 @@
             animation: fadeInUp 1s ease-out;
         }
 
-        /* الحاوية الرئيسية (Main Container) */
         .container {
             max-width: 1100px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
-        /* شبكة تجمع الكارت والتشيك أوت جنباً إلى جنب */
         .main-form {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -121,13 +105,10 @@
         }
 
         @media (max-width: 768px) {
-            .main-form {
-                grid-template-columns: 1fr;
-            }
+            .main-form { grid-template-columns: 1fr; }
             .hero h1 { font-size: 32px; }
         }
 
-        /* كروت الأقسام (Cards) */
         .card {
             background: var(--white);
             border-radius: 20px;
@@ -153,14 +134,9 @@
             gap: 10px;
         }
 
-        .card-title i {
-            color: var(--primary-color);
-        }
+        .card-title i { color: var(--primary-color); }
 
-        /* عناصر الفورم (Form Elements) */
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 20px; }
 
         .form-group label {
             display: block;
@@ -187,7 +163,6 @@
             box-shadow: 0 0 0 4px rgba(255, 133, 162, 0.1);
         }
 
-        /* مخصص لرفع الملفات */
         .file-upload {
             position: relative;
             display: block;
@@ -200,18 +175,12 @@
             transition: var(--transition);
         }
 
-        .file-upload:hover {
-            background-color: #fde2e7;
-        }
+        .file-upload:hover { background-color: #fde2e7; }
 
         .file-upload input[type="file"] {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
         }
 
         .file-upload i {
@@ -220,7 +189,6 @@
             margin-bottom: 10px;
         }
 
-        /* معاينة الصورة المرفوعة */
         .image-preview {
             width: 100px;
             height: 100px;
@@ -232,7 +200,6 @@
             animation: pulse 2s infinite;
         }
 
-        /* خيارات الدفع */
         .payment-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -251,15 +218,9 @@
             transition: var(--transition);
         }
 
-        .payment-option input {
-            accent-color: var(--primary-color);
-        }
+        .payment-option input { accent-color: var(--primary-color); }
+        .payment-option:hover { border-color: var(--primary-color); }
 
-        .payment-option:hover {
-            border-color: var(--primary-color);
-        }
-
-        /* الأزرار */
         .btn {
             width: 100%;
             padding: 14px;
@@ -285,27 +246,16 @@
             cursor: not-allowed;
         }
 
-        /* بوب اب النجاح المخصص */
         .success-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 2000; opacity: 0; pointer-events: none;
             transition: opacity 0.4s ease;
         }
 
-        .success-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .success-overlay.active { opacity: 1; pointer-events: auto; }
 
         .success-card {
             background: white;
@@ -319,15 +269,9 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.2);
         }
 
-        .success-overlay.active .success-card {
-            transform: scale(1);
-        }
+        .success-overlay.active .success-card { transform: scale(1); }
 
-        .success-card i {
-            font-size: 60px;
-            color: #2ec4b6;
-            margin-bottom: 20px;
-        }
+        .success-card i { font-size: 60px; color: #2ec4b6; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -426,32 +370,23 @@
         const imageInput = document.getElementById('product-image');
         const previewImage = document.getElementById('preview');
         const uploadText = document.getElementById('upload-text');
-        let base64Image = ""; 
+        let selectedFile = null;
 
-        // معالجة اختيار ومعاينة الصورة وضغطها تلقائياً
         imageInput.addEventListener('change', function() {
             const file = this.files[0];
             if (file) {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert("صورة المنتج حجمها كبير، يرجى رفع صورة أصغر أو التقاط لقطة شاشة (Screenshot) خفيفة.");
-                    this.value = '';
-                    return;
-                }
-                
-                const reader = new FileReader();
+                selectedFile = file;
                 uploadText.textContent = `تم اختيار: ${file.name}`;
                 
+                const reader = new FileReader();
                 reader.addEventListener('load', function() {
                     previewImage.setAttribute('src', this.result);
                     previewImage.style.display = 'block';
-                    base64Image = this.result; // حفظ الصورة كنص لـ Formspree
                 });
-                
                 reader.readAsDataURL(file);
             }
         });
 
-        // ربط السيرفر والتحكم بالإرسال لمنع الأخطاء
         const form = document.getElementById('order-form');
         const submitBtn = document.getElementById('submit-btn');
         const modal = document.getElementById('successModal');
@@ -459,54 +394,69 @@
         form.addEventListener('submit', function(event) {
             event.preventDefault(); 
             
-            if(!base64Image) {
+            if(!selectedFile) {
                 alert('من فضلكِ قومي برفع صورة للمنتج أولاً في الكارت.');
                 return;
             }
 
             submitBtn.disabled = true;
-            submitBtn.textContent = 'جاري إرسال طلبكِ الفاخر...';
+            submitBtn.textContent = 'جاري معالجة وإرسال طلبكِ...';
 
-            // صياغة البيانات كـ FormData لضمان قراءتها على الخطة المجانية لـ Formspree
-            const formData = new FormData();
-            formData.append("الاسم بالكامل", document.getElementById('full-name').value);
-            formData.append("رقم الهاتف", document.getElementById('phone-number').value);
-            formData.append("رابط المنتج المراد", document.getElementById('product-link').value);
-            formData.append("العنوان بالتفصيل", document.getElementById('address').value);
-            formData.append("طريقة الدفع المختارة", document.querySelector('input[name="طريقة الدفع"]:checked').value);
-            formData.append("ملاحظات العميلة", document.getElementById('notes').value);
-            formData.append("صورة المنتج المرفوعة", base64Image); 
+            // الخطوة 1: رفع الصورة إلى سيرفر خارجي مجاني ومفتوح لتخطي قيود الحجم لـ Formspree
+            const imgData = new FormData();
+            imgData.append('image', selectedFile);
 
-            // الإرسال السري بالخلفية
-            fetch(form.action, {
-                method: form.method,
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
+            // نستخدم مفتاح ربط عام ومجاني لرفع الصور الفوري
+            fetch('https://api.imgbb.com/1/upload?key=6dad906b3fa24419cb7596b5fc91f630', {
+                method: 'POST',
+                body: imgData
+            })
+            .then(res => res.json())
+            .then(imgResponse => {
+                if(imgResponse.success) {
+                    const uploadedImageUrl = imgResponse.data.url; // هذا هو رابط الصورة المباشر النظيف
+
+                    // الخطوة 2: صياغة البيانات النهائية وإرسالها لـ Formspree كـ نص خفيف جداً ومضمون
+                    const finalData = new FormData();
+                    finalData.append("الاسم بالكامل", document.getElementById('full-name').value);
+                    finalData.append("رقم الهاتف", document.getElementById('phone-number').value);
+                    finalData.append("رابط المنتج الأصلي", document.getElementById('product-link').value);
+                    finalData.append("العنوان بالتفصيل", document.getElementById('address').value);
+                    finalData.append("طريقة الدفع", document.querySelector('input[name="طريقة الدفع"]:checked').value);
+                    finalData.append("ملاحظات العميلة", document.getElementById('notes').value);
+                    finalData.append("رابط صورة المنتج المرفوعة", uploadedImageUrl); // إرسال كرابط انترنت خفيف جداً
+
+                    return fetch(form.action, {
+                        method: form.method,
+                        body: finalData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                } else {
+                    throw new Error('فشل رفع الصورة');
                 }
-            }).then(response => {
-                if (response.ok) {
-                    // تفعيل بوب اب النجاح العربي الفوري
+            })
+            .then(response => {
+                if (response && response.ok) {
                     modal.classList.add('active');
                 } else {
-                    alert('حدث خطأ غير متوقع بالسيرفر. يرجى التأكد من ملء الحقول والمحاولة مجدداً.');
+                    alert('حدث خطأ أثناء تسجيل البيانات في Formspree، يرجى المحاولة مرة أخرى.');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'تأكيد الطلب الآن';
                 }
-            }).catch(error => {
-                alert('فشل الاتصال بالشبكة، يرجى التأكد من جودة الإنترنت لديكِ.');
+            })
+            .catch(error => {
+                alert('حدث خطأ في الاتصال بالشبكة أو حجم الصورة. يرجى إعادة المحاولة بسكرين شوت أو صورة أخرى.');
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'تأكيد الطلب الآن';
             });
         });
 
-        // تنظيف البيانات لبدء طلب جديد بعد الإغلاق
         function closeModal() {
             modal.classList.remove('active');
             form.reset();
             previewImage.style.display = 'none';
             uploadText.textContent = "اضغطي هنا لرفع صورة المنتج";
-            base64Image = "";
+            selectedFile = null;
             submitBtn.disabled = false;
             submitBtn.textContent = 'تأكيد الطلب الآن';
         }
